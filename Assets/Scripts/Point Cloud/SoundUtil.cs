@@ -12,39 +12,48 @@ namespace cmp2804.Point_Cloud
 
         private static IEnumerator RayCaster(Vector3 position, float intensity)
         {
-            for (int i = 0; i < 10; i++)
+            Vector3 direction = Vector3.down;
+            float sectorAngle = 70;
+            int numRays = Mathf.RoundToInt(intensity * 100);
+            //for (int i = 0; i < 100; i++)
             {
-                Ray ray = new Ray();
-                ray.origin = position;
-                float inverseResolution = 10f;
-                Vector3 direction = Vector3.right;
-                int steps = Mathf.FloorToInt(360f / inverseResolution);
-                Quaternion xRotation = Quaternion.Euler(Vector3.right * inverseResolution);
-                Quaternion yRotation = Quaternion.Euler(Vector3.up * inverseResolution);
-                Quaternion zRotation = Quaternion.Euler(Vector3.forward * inverseResolution);
-                for (int x = 0; x < steps / 2; x++)
+                int raysCast = 0;
+                while (raysCast < numRays)
                 {
-                    direction = zRotation * direction;
-                    for (int y = 0; y < steps; y++)
+                    Vector3 randomDirection = Random.onUnitSphere;
+
+                    // Check if the angle between the random direction and the sector direction is less than the sector angle
+                    if (Vector3.Angle(randomDirection, direction) < sectorAngle)
                     {
-                        direction = xRotation * direction;
-                         direction = new Vector3(direction.x + (Random.value - 0.5f), direction.y +(Random.value - 0.5f),
-                            direction.z +(Random.value - 0.5f));
-                        ray.direction = direction;
-                        if (Physics.Raycast(ray, out RaycastHit hit, intensity))
+                        Ray ray = new Ray(position, randomDirection);
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit, intensity * 10))
                         {
-                            Debug.DrawLine(ray.origin, hit.point, Color.black, 2); // for science
-                            PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, 1);
+                            PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, intensity);
+                            //Debug.DrawLine(position, hit.point, Color.red, 2);
                         }
                         else
                         {
-                            Debug.DrawLine(ray.origin, ray.origin + (direction * 10), Color.black, 2); // for science
+                            //Debug.DrawRay(position, randomDirection * intensity, Color.blue, 1);
                         }
+
+                        raysCast++;
                     }
                 }
-
-                yield return new WaitForEndOfFrame();
+                // Vector3 direction = Random.onUnitSphere;
+                // if (Physics.Raycast(position, direction, out RaycastHit hit, intensity))
+                // {
+                //     Debug.DrawLine(position, hit.point, Color.black, 2); // for science
+                //     PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, 1);
+                // }
+                // else
+                // {
+                //     Debug.DrawLine(position, position + (direction * 10), Color.black, 6); // for science
+                // }
             }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }

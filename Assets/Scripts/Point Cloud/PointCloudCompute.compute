@@ -1,0 +1,11 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+RWStructuredBuffer<float> lifespans;
+float deltaTime;
+
+[numthreads(8,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+   lifespans[id.x] = max(0, lifespans[id.x] - deltaTime);
+}
