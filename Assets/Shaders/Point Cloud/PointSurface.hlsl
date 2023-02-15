@@ -1,6 +1,7 @@
 #if defined(UNITY_PROCEDURAL_INSTANCING_ENABLED)
 	StructuredBuffer<float3> _Positions;
 	StructuredBuffer<float3> _Normals;
+    StructuredBuffer<float4> _Colours;
     StructuredBuffer<float> _Lifespans;
 #endif
 
@@ -21,7 +22,7 @@ void ConfigureProcedural()
 	//_uvPosition = _uvs[unity_InstanceID];
 	normalDirection = _Normals[unity_InstanceID];
 	lifespan = _Lifespans[unity_InstanceID];
-  
+	colour = _Colours[unity_InstanceID];
 	
 	// float4x4 scale = {step,0.0,0.0,0.0,
 	// 					0.0,step,0.0,0.0,
@@ -49,16 +50,19 @@ void ConfigureProcedural()
     #endif
 }
 
-void ShaderGraphFunction_float(float3 In, out float3 Out, out float3 NormalDirection, out float Lifespan)
+void ShaderGraphFunction_float(float3 In, out float3 Out, out float3 NormalDirection, out float4 Colour,
+                               out float Lifespan)
 {
     Out = In;
     NormalDirection = normalDirection;
     Lifespan = lifespan;
+    Colour = colour;
 }
 
-void ShaderGraphFunction_half(half3 In, out half3 Out, out half3 NormalDirection, out float Lifespan)
+void ShaderGraphFunction_half(half3 In, out half3 Out, out half3 NormalDirection, out half4 Colour, out float Lifespan)
 {
     Out = In;
     NormalDirection = normalDirection;
     Lifespan = lifespan;
+    Colour = colour;
 }
