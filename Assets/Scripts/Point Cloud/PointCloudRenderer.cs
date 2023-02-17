@@ -47,8 +47,7 @@ namespace cmp2804.Point_Cloud
             {
                 Destroy(this);
             }
-
-            StartCoroutine(Pulse());
+            
             SceneManager.activeSceneChanged += SoundUtil.OnSceneChange;
         }
 
@@ -68,16 +67,6 @@ namespace cmp2804.Point_Cloud
             pointMaterial.SetMatrix("quaternion",
                 Matrix4x4.TRS(new Vector3(0, 0, 0), transform.rotation, new Vector3(1, 1, 1)));
         }
-
-        IEnumerator Pulse()
-        {
-            while (true)
-            {
-                SoundUtil.MakeSound(transform.position, 0.2f);
-                yield return new WaitForSeconds(0.02f);
-            }
-        }
-
         private void Update()
         {
             // for (int i = 0; i < _lifespans.Count; i++)
@@ -94,7 +83,7 @@ namespace cmp2804.Point_Cloud
 
             if (Keyboard.current.kKey.wasPressedThisFrame)
             {
-                SoundUtil.MakeSound(transform.position, 10);
+                SoundUtil.MakeSound(transform.position, 1000, 100, 10);
             }
 
             if (_pointBuffer == null || _normalBuffer == null || _lifespanBuffer == null)
