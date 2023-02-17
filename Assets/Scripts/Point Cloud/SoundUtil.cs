@@ -1,20 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace cmp2804.Point_Cloud
 {
     public static class SoundUtil
     {
-        private static Dictionary<Transform, Color> _objectColours = new Dictionary<Transform, Color>();
-        public static void OnSceneChange(Scene arg0, Scene scene)
-        {
-            foreach (var renderer in Object.FindObjectsOfType<Renderer>())
-            {
-                _objectColours.Add(renderer.transform, renderer.material.color);
-            }
-        }
         public static void MakeSound(Vector3 position, float intensity)
         {
             PointCloudRenderer.Instance.StartCoroutine(RayCaster(position, intensity));
@@ -40,8 +30,7 @@ namespace cmp2804.Point_Cloud
 
                         if (Physics.Raycast(ray, out hit, intensity * 10))
                         {
-                            //Color colour = hit.transform.GetComponent<Renderer>().material.color;
-                            PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, _objectColours[hit.transform], intensity);
+                            PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, intensity);
                             //Debug.DrawLine(position, hit.point, Color.red, 2);
                         }
                         else

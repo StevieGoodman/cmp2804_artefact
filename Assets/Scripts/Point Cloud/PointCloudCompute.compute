@@ -2,12 +2,10 @@
 #pragma kernel CSMain
 
 RWStructuredBuffer<float> lifespans;
-RWStructuredBuffer<float> lifespanScales;
 float deltaTime;
 
-[numthreads(32,1,1)]
+[numthreads(8,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
-   const int index = id.x;
-   lifespans[index] = max(0, lifespans[index] - deltaTime / lifespanScales[index]);
+   lifespans[id.x] = max(0, lifespans[id.x] - deltaTime);
 }
