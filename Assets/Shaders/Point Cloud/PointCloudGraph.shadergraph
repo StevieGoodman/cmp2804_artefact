@@ -164,9 +164,9 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "4559cd4c7e304b61a8d0c583c5fe69e0"
+                    "m_Id": "37387657079c4014bd74e4baf3d0cabb"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 8
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -829,6 +829,9 @@
         },
         {
             "m_Id": "e8fbb556dc5e483e82e2b30429a71301"
+        },
+        {
+            "m_Id": "ea525eb673ab4cdda5cc2a251538981a"
         },
         {
             "m_Id": "4e16b6048a5e4fa5a521f116cd4f70c9"
@@ -2495,6 +2498,31 @@
             "m_Id": "cf77916744024bd285d7efe72d573ea1"
         }
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "ea525eb673ab4cdda5cc2a251538981a",
+    "m_Id": 8,
+    "m_DisplayName": "Colour",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Colour",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
 }
 
 {
