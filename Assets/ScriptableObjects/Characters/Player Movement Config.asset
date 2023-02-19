@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d72176acc993471e979d5929212512d4, type: 3}
-  m_Name: Player Character Movement Config
+  m_Name: Player Movement Config
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2

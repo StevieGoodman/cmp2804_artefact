@@ -1,5 +1,3 @@
-using System;
-using cmp2804.Scriptable_Objects.Characters;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,11 +6,11 @@ namespace cmp2804.Characters
 {
     [RequireComponent(typeof(Transform), typeof(Rigidbody))]
     [HideMonoScript]
-    public class PlayerCharacterController : SerializedMonoBehaviour, ICharacterController {
+    public class PlayerMovementController : SerializedMonoBehaviour, IMovementController {
         
         [Title("Character Movement Config", "The configuration for the character movement.")]
         [SerializeField, Required, HideLabel, InlineEditor]
-        private CharacterMovementConfig characterMovementConfig;
+        private MovementConfig movementConfig;
         
         [Space]
         
@@ -34,8 +32,10 @@ namespace cmp2804.Characters
 
         public void IncrementMovement()
         {
-            rigidBody.MovePosition(rigidBody.position +
-                                   moveDirection * (Time.deltaTime * characterMovementConfig.movementSpeed));
+            var newPosition = rigidBody.position + 
+                              moveDirection * 
+                              (Time.deltaTime * movementConfig.movementSpeed);
+            rigidBody.MovePosition(newPosition);
         }
 
         public void IncrementRotation()
@@ -46,7 +46,7 @@ namespace cmp2804.Characters
                 Quaternion.RotateTowards(
                     rigidBody.rotation, 
                     targetRotation,
-                    360 * Time.deltaTime / characterMovementConfig.rotationSpeed)
+                    360 * Time.deltaTime / movementConfig.rotationSpeed)
                 );
 
         }
