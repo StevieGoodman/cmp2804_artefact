@@ -1,10 +1,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace cmp2804.Scriptable_Objects.Characters
+namespace cmp2804.Characters
 {
     [CreateAssetMenu(fileName = "Character Movement Config", menuName = "ScriptableObjects/Characters/Character Movement Config", order = 0)]
-    public class CharacterMovementConfig : SerializedScriptableObject
+    public class MovementConfig : SerializedScriptableObject
     {
         [Title("Movement Speed", "The speed at which the character moves, measured in units per second.")]
         [Range(0f, 10f), HideLabel]
