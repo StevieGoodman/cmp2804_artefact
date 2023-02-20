@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 3304483}
   - component: {fileID: 3304482}
   - component: {fileID: 3304488}
+  - component: {fileID: 3304489}
   - component: {fileID: 3304487}
   m_Layer: 0
   m_Name: Player Character
@@ -266,8 +267,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3304488}
-        m_TargetAssemblyTypeName: cmp2804.Characters.PlayerCharacterController, Assembly-CSharp
+      - m_Target: {fileID: 3304489}
+        m_TargetAssemblyTypeName: cmp2804.Characters.PlayerInputHandler, Assembly-CSharp
         m_MethodName: SetMoveDirection
         m_Mode: 0
         m_Arguments:
@@ -280,6 +281,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d0dbb289-e974-4422-be25-cea8cb672617
     m_ActionName: Player Character/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3304489}
+        m_TargetAssemblyTypeName: cmp2804.Characters.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Crouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5ee7e12e-f4bb-47ba-a27c-9ed62f8bd107
+    m_ActionName: Player Character/Crouch[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3304489}
+        m_TargetAssemblyTypeName: cmp2804.Characters.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Crawl
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 725f17a4-abf2-49bd-8cfd-5e05725f9978
+    m_ActionName: Player Character/Crawl[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3304489}
+        m_TargetAssemblyTypeName: cmp2804.Characters.PlayerInputHandler, Assembly-CSharp
+        m_MethodName: Jog
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0db4c701-1338-429e-b51e-4adc0b96df29
+    m_ActionName: Player Character/Jog[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Character
@@ -306,9 +355,35 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  characterMovementConfig: {fileID: 11400000, guid: 2c9fc9b0fb4f84e8ebc5aa294acfa0f5, type: 2}
   rigidBody: {fileID: 3304482}
+  movementState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
   moveDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &3304489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753acf0637044121833a99619945ba2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  movementController: {fileID: 3304488}
+  crawlState: {fileID: 11400000, guid: cb140dc0b36e84a3e81752de6198e4d8, type: 2}
+  crouchState: {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
+  walkState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+  jogState: {fileID: 11400000, guid: 0ec1c445d3d5943baad06cf511b2c4f7, type: 2}
 --- !u!1 &397557051
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +1019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2095620833}
   m_Layer: 0
-  m_Name: =====Player Characters=====
+  m_Name: =====Characters=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
