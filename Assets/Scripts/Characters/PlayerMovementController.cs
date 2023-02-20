@@ -1,22 +1,22 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace cmp2804.Characters
 {
     [RequireComponent(typeof(Transform), typeof(Rigidbody))]
     [HideMonoScript]
-    public class PlayerMovementController : SerializedMonoBehaviour, IMovementController {
-        
-        [Title("Character Movement Config", "The configuration for the character movement.")]
-        [SerializeField, Required, HideLabel, InlineEditor]
-        private MovementConfig movementConfig;
-        
-        [Space]
-        
+    public class PlayerMovementController : SerializedMonoBehaviour, IMovementController
+    {
         [Title("Component Fields", "The components required for the character controller.")]
         [SerializeField, Required]
         private Rigidbody rigidBody;
+        
+        [Space]
+        
+        [Title("Movement State", "The behaviour defining the player's movement.")]
+        [SerializeField, Required, HideLabel, InlineEditor]
+        private MovementState movementState;
         
         [Space]
         
@@ -34,7 +34,7 @@ namespace cmp2804.Characters
         {
             var newPosition = rigidBody.position + 
                               moveDirection * 
-                              (Time.deltaTime * movementConfig.movementSpeed);
+                              (Time.deltaTime * movementState.moveSpeed);
             rigidBody.MovePosition(newPosition);
         }
 
@@ -46,15 +46,18 @@ namespace cmp2804.Characters
                 Quaternion.RotateTowards(
                     rigidBody.rotation, 
                     targetRotation,
-                    360 * Time.deltaTime / movementConfig.rotationSpeed)
+                    360 * Time.deltaTime / movementState.rotationSpeed)
                 );
-
         }
         
-        public void SetMoveDirection(InputAction.CallbackContext context)
+        public void SetMoveDirection(Vector3 direction)
         {
-            var direction = (Vector3)context.ReadValue<Vector2>();
-            moveDirection = new Vector3(direction.x, 0, direction.y);
+            moveDirection = direction;
+        }
+
+        public void SetMovementState(MovementState newState)
+        {
+            movementState = newState;
         }
     }
 }
