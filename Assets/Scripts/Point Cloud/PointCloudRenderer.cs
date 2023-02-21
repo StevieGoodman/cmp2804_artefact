@@ -10,14 +10,8 @@ namespace cmp2804.Point_Cloud
 {
     public class PointCloudRenderer : MonoBehaviour
     {
-        struct Point
-        {
-            public Vector3 Position;
-            public Vector3 Normal;
-            public Color Colour;
-            public float LifespanScale;
-        }
-        private const float PointScale = 0.2f;
+
+        private const float PointScale = 0.05f;
 
         private static readonly int
             PositionsId = Shader.PropertyToID("_Positions"),
@@ -27,7 +21,10 @@ namespace cmp2804.Point_Cloud
         [SerializeField] private Mesh pointMesh;
         [SerializeField] private ComputeShader computeShader;
         private readonly Bounds _bounds = new(Vector3.zero, Vector3.one * 20000);
-        private readonly List<Point> _points = new();
+        private readonly List<Vector3> _points = new();
+        private readonly List<Vector3> _normals = new();
+        private readonly List<Color> _colours = new();
+        private readonly List<float> _lifespanScales = new();
         private List<float> _lifespans = new();
         private ComputeBuffer _pointBuffer;
         private ComputeBuffer _normalBuffer;
@@ -48,7 +45,7 @@ namespace cmp2804.Point_Cloud
                 Destroy(this);
             }
             
-            SceneManager.activeSceneChanged += SoundUtil.OnSceneChange;
+            SceneManager.activeSceneChanged += SoundManager.OnSceneChange;
         }
 
         private void UpdateShader()
@@ -83,7 +80,7 @@ namespace cmp2804.Point_Cloud
 
             if (Keyboard.current.kKey.wasPressedThisFrame)
             {
-                SoundUtil.MakeSound(transform, 1000, 100, 10);
+                SoundManager.MakeSound(transform, 1000, 100, 10);
             }
 
             if (_pointBuffer == null || _normalBuffer == null || _lifespanBuffer == null)
@@ -105,8 +102,11 @@ namespace cmp2804.Point_Cloud
                 if (_lifespans[i] <= 0)
                 {
                     reset = true;
-                    _lifespans.RemoveAt(i);
                     _points.RemoveAt(i);
+                    _normals.RemoveAt(i);
+                    _colours.RemoveAt(i);
+                    _lifespanScales.RemoveAt(i);
+                    _lifespans.RemoveAt(i);
                 }
             }
             if (reset)
@@ -121,13 +121,10 @@ namespace cmp2804.Point_Cloud
 
         public void CreatePoint(Vector3 position, Vector3 direction, Color colour, float lifespanScale)
         {
-            _points.Add(new Point()
-            {
-                Position = position,
-                Normal =  direction,
-                Colour = colour,
-                LifespanScale = lifespanScale
-            });
+            _points.Add(position);
+            _normals.Add(direction);
+            _colours.Add(colour);
+            _lifespanScales.Add(lifespanScale);
             _lifespans.Add(1);
             RecreateBuffers();
             UpdateShader();
@@ -146,7 +143,7 @@ namespace cmp2804.Point_Cloud
             }
 
             _pointBuffer = new ComputeBuffer(count, 3 * sizeof(float));
-            _pointBuffer.SetData(_points.Select(x=>x.Position).ToArray());
+            _pointBuffer.SetData(_points);
 
             if (_normalBuffer != null)
             {
@@ -154,7 +151,7 @@ namespace cmp2804.Point_Cloud
             }
 
             _normalBuffer = new ComputeBuffer(count, 3 * sizeof(float));
-            _normalBuffer.SetData(_points.Select(x=>x.Normal).ToArray());
+            _normalBuffer.SetData(_normals);
        
             if (_colourBuffer != null)
             {
@@ -162,7 +159,7 @@ namespace cmp2804.Point_Cloud
             }
 
             _colourBuffer = new ComputeBuffer(count, 4 * sizeof(float));
-            _colourBuffer.SetData(_points.Select(x=>x.Colour).ToArray());
+            _colourBuffer.SetData(_colours);
 
             if (_lifespanScaleBuffer != null)
             {
@@ -170,7 +167,7 @@ namespace cmp2804.Point_Cloud
             }
 
             _lifespanScaleBuffer = new ComputeBuffer(count, sizeof(float));
-            _lifespanScaleBuffer.SetData(_points.Select(x=>x.LifespanScale).ToArray());
+            _lifespanScaleBuffer.SetData(_lifespanScales);
 
             if (_lifespanBuffer != null)
             {

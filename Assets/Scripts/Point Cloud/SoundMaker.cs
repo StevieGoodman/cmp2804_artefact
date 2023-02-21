@@ -7,8 +7,9 @@ namespace cmp2804.Point_Cloud
     public class SoundMaker : MonoBehaviour
     {
         [Header("Emission settings")] [SerializeField]
-        private bool _emitOnStartup;
+        private bool _useTransformRotation;
 
+        [SerializeField] private bool _emitOnStartup;
         [SerializeField] private float _emissionFrequency;
         [SerializeField] private int _numberOfRays;
         [SerializeField] private float _pointLifespan;
@@ -40,7 +41,8 @@ namespace cmp2804.Point_Cloud
         {
             while (true)
             {
-                SoundUtil.MakeSound(transform, _direction, _angle, _numberOfRays, _raycastDistance,
+                SoundManager.MakeSound(transform, _useTransformRotation ? transform.forward : _direction, _angle,
+                    _numberOfRays, _raycastDistance,
                     _pointLifespan);
                 yield return new WaitForSeconds(_emissionFrequency);
             }
@@ -48,11 +50,19 @@ namespace cmp2804.Point_Cloud
 
         private void OnDrawGizmosSelected()
         {
-            _direction.Normalize();
+            if (_useTransformRotation)
+            {
+                _direction = transform.forward;
+            }
+            else
+            {
+                _direction.Normalize();
+            }
+
             Gizmos.DrawWireSphere(transform.position, _raycastDistance);
             //Vector3 up = _direction * Vector3.up;
             Vector3 right = Vector3.Cross(_direction.normalized, Vector3.up + new Vector3(0.05f, 0.0f, 0.05f));
-            Vector3 up = Vector3.Cross(_direction.normalized , right+ new Vector3(0.05f, 0.0f, 0.05f));
+            Vector3 up = Vector3.Cross(_direction.normalized, right + new Vector3(0.05f, 0.0f, 0.05f));
             Quaternion leftRayRotation = Quaternion.AngleAxis(-_angle / 2, up);
             Quaternion rightRayRotation = Quaternion.AngleAxis(_angle / 2, up);
             Quaternion upRayRotation = Quaternion.AngleAxis(-_angle / 2, right);
