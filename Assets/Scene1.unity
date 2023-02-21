@@ -346,6 +346,7 @@ MonoBehaviour:
   _emissionFrequency: 0.05
   _numberOfRays: 200
   _pointLifespan: 2
+  _inverted: 0
   _direction: {x: 0, y: -1, z: 0}
   _angle: 257
   _raycastDistance: 19.46
@@ -9942,7 +9943,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6303411126321155018, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6303411126321155018, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10077,6 +10078,7 @@ MonoBehaviour:
   _emissionFrequency: 0.05
   _numberOfRays: 20
   _pointLifespan: 2
+  _inverted: 0
   _direction: {x: 0, y: -1, z: 0}
   _angle: 58
   _raycastDistance: 1.4
@@ -12451,58 +12453,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &2028469749
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2028469751}
-  - component: {fileID: 2028469750}
-  m_Layer: 0
-  m_Name: Sound Maker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2028469750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028469749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bbd72e4f561d8941a91c00bb3f31f42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _useTransformRotation: 0
-  _emitOnStartup: 1
-  _emissionFrequency: 0.5
-  _numberOfRays: 100
-  _pointLifespan: 10
-  _direction: {x: 0, y: -1, z: 0}
-  _angle: 90
-  _raycastDistance: 29.84
---- !u!4 &2028469751
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028469749}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.19, y: 8.481875, z: 8.45}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2037677664
 Mesh:
   m_ObjectHideFlags: 0
@@ -13569,3 +13519,21 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+--- !u!1 &2145098499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3715200123323987724, guid: a57ed11e541676e499635b65325df395, type: 3}
+  m_PrefabInstance: {fileID: 1746275895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2145098506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145098499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17709d2fb23d73041b6bd813878e45da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HighlightColour: {r: 1, g: 0, b: 0, a: 0}
