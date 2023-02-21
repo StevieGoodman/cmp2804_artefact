@@ -13,6 +13,7 @@ namespace cmp2804.Point_Cloud
         [SerializeField] private float _emissionFrequency;
         [SerializeField] private int _numberOfRays;
         [SerializeField] private float _pointLifespan;
+        [SerializeField] private bool _inverted;
 
         [Header("Emit zone")] [SerializeField] private Vector3 _direction;
         [SerializeField, Range(0, 360)] private float _angle;
@@ -41,9 +42,9 @@ namespace cmp2804.Point_Cloud
         {
             while (true)
             {
-                SoundManager.MakeSound(transform, _useTransformRotation ? transform.forward : _direction, _angle,
+                SoundManager.MakeSound(transform.position, _useTransformRotation ? transform.forward : _direction, _angle,
                     _numberOfRays, _raycastDistance,
-                    _pointLifespan);
+                    _pointLifespan, _inverted);
                 yield return new WaitForSeconds(_emissionFrequency);
             }
         }

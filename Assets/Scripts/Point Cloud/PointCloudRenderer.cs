@@ -80,7 +80,7 @@ namespace cmp2804.Point_Cloud
 
             if (Keyboard.current.kKey.wasPressedThisFrame)
             {
-                SoundManager.MakeSound(transform, 1000, 100, 10);
+                SoundManager.MakeSound(transform.position, 1000, 100, 10);
             }
 
             if (_pointBuffer == null || _normalBuffer == null || _lifespanBuffer == null)
