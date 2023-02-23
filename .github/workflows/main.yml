@@ -1,10 +1,10 @@
-name: Actions 😎
+name: ✅ Test Project
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build my project ✨
+    name: ✅ Test Project
     runs-on: ubuntu-latest
     steps:
       # Checkout
@@ -28,16 +28,6 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: WebGL
 
       # Output
       - uses: actions/upload-artifact@v2
