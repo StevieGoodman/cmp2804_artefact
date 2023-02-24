@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace cmp2804.Point_Cloud
@@ -15,7 +16,8 @@ namespace cmp2804.Point_Cloud
         [SerializeField] private float _pointLifespan;
         [SerializeField] private bool _inverted;
 
-        [Header("Emit zone")] [SerializeField] private Vector3 _direction;
+        [Header("Emit zone")] 
+        [SerializeField] private Vector3 _direction;
         [SerializeField, Range(0, 360)] private float _angle;
         [SerializeField] private float _raycastDistance;
 

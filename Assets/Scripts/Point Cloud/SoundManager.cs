@@ -27,6 +27,8 @@ namespace cmp2804.Point_Cloud
             }
         }
 
+        [SerializeField] private Transform playerHead;
+        
         private static readonly Dictionary<Transform, Color> _objectColours = new Dictionary<Transform, Color>();
 
         private static readonly Dictionary<Transform, Color> _highlightObjectColours =
@@ -58,11 +60,18 @@ namespace cmp2804.Point_Cloud
                 MakerRay ray = _raysTocast.Dequeue();
                 if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, ray.length))
                 {
-                    // if (Physics.Raycast(hit.point, Camera.main.transform.position - hit.point, out RaycastHit playerCheck) && hit.transform != playerCheck.transform)
-                    // {
-                    //     continue;
-                    // }
+                    if (!Physics.Raycast(hit.point, playerHead.position - hit.point, out RaycastHit playerCheck))
+                    {
+                        continue;
+                    }
 
+                    if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
+                    {
+                        continue;
+                        ;
+                    }
+                    
+                    
                     if (highlightEnabled && _highlightObjectColours.TryGetValue(hit.transform, out Color colour))
                     {
                         PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, colour,

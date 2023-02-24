@@ -2315,7 +2315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 512538555}
   - component: {fileID: 512538556}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sound Maker (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2703,6 +2703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 596942209, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
+      propertyPath: playerHead
+      value: 
+      objectReference: {fileID: 934070046}
     - target: {fileID: 6303411126321155018, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2753,23 +2757,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
---- !u!1 &596942208 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6303411126321155020, guid: 203b9f47831130d41aee24bc30f0de8e, type: 3}
-  m_PrefabInstance: {fileID: 596942207}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &596942209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596942208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee0bfca30c839dd4e977e4a3e45b2280, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &609529722
 Mesh:
   m_ObjectHideFlags: 0
@@ -5909,7 +5896,7 @@ GameObject:
   - component: {fileID: 934070045}
   - component: {fileID: 934070044}
   - component: {fileID: 934070043}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6315,7 +6302,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-63648
+  m_Name: pb_Mesh24816
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11134,7 +11121,7 @@ GameObject:
   - component: {fileID: 1622614817}
   - component: {fileID: 1622614816}
   - component: {fileID: 1622614815}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -11240,6 +11227,59 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1628237351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628237353}
+  - component: {fileID: 1628237352}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1628237352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628237351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbd72e4f561d8941a91c00bb3f31f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useTransformRotation: 0
+  _emitOnStartup: 1
+  _emissionFrequency: 0.05
+  _numberOfRays: 20
+  _pointLifespan: 4
+  _inverted: 0
+  _direction: {x: 0, y: 1, z: 0}
+  _angle: 360
+  _raycastDistance: 6.83
+--- !u!4 &1628237353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628237351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.371, y: 0.86, z: 10.627}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1687131054
 Mesh:
   m_ObjectHideFlags: 0
@@ -11906,7 +11946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741633023}
   - component: {fileID: 1741633024}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -58,9 +58,6 @@ namespace cmp2804.Point_Cloud
             pointMaterial.SetFloat("scale", transform.localScale.x);
             pointMaterial.SetFloat("intensity", 1);
             pointMaterial.SetVector("worldPos", transform.position);
-            //pointMaterial.SetVector("colour", new Vector4(1, 1, 1, 1));
-            //material.SetFloat("_ColorFromTextureLerp", colorFromTextureLerp);
-            //material.SetFloat("_UseAlpha", useAlpha?1:0);
             pointMaterial.SetMatrix("quaternion",
                 Matrix4x4.TRS(new Vector3(0, 0, 0), transform.rotation, new Vector3(1, 1, 1)));
         }
