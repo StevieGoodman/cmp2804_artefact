@@ -5,11 +5,11 @@ namespace cmp2804.Characters
         /// <summary>
         /// Increments the movement of the character for the next frame.
         /// </summary>
-        public void IncrementMovement();
+        void IncrementMovement();
         
         /// <summary>
         /// Increments the rotation of the character for the next frame.
         /// </summary>
-        public void IncrementRotation();
+        void IncrementRotation();
     }
 }
