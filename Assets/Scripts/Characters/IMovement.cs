@@ -1,6 +1,6 @@
-namespace cmp2804.Characters
+namespace Characters
 {
-    public interface IMovementController
+    public interface IMovement
     {
         /// <summary>
         /// Increments the movement of the character for the next frame.

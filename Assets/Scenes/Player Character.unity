@@ -356,8 +356,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   rigidBody: {fileID: 3304482}
-  movementState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
-  moveDirection: {x: 0, y: 0, z: 0}
+  <MovementState>k__BackingField: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+  <MoveDirection>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &3304489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +379,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  movementController: {fileID: 3304488}
+  movement: {fileID: 3304488}
   crawlState: {fileID: 11400000, guid: cb140dc0b36e84a3e81752de6198e4d8, type: 2}
   crouchState: {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
   walkState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}

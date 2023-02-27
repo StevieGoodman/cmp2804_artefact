@@ -1,23 +1,21 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(PlayerMovementController))]
+    [RequireComponent(typeof(PlayerMovement))]
     [HideMonoScript]
     public class PlayerInputHandler : SerializedMonoBehaviour
     {
         [Title("Component Fields", "The components required for the character controller.")]
         [SerializeField, Required]
-        private PlayerMovementController movementController;
+        private PlayerMovement movement;
 
         [Title("Movement States", "The possible states the player can move in.")] 
         [SerializeField, Required]
         private MovementState crawlState;
-        [SerializeField, Required] 
+        [SerializeField, Required]
         private MovementState crouchState;
         [SerializeField, Required] 
         private MovementState walkState;
@@ -27,7 +25,7 @@ namespace cmp2804.Characters
         public void SetMoveDirection(InputAction.CallbackContext context)
         {
             var direction = (Vector3)context.ReadValue<Vector2>();
-            movementController.SetMoveDirection(new Vector3(direction.x, 0, direction.y));
+            movement.SetMoveDirection(new Vector3(direction.x, 0, direction.y));
         }
 
         public void Crawl(InputAction.CallbackContext context)
@@ -48,9 +46,9 @@ namespace cmp2804.Characters
         private void SetMovementState(InputAction.CallbackContext context, MovementState movementState)
         {
             if (context.performed)
-                movementController.SetMovementState(movementState);
+                movement.SetMovementState(movementState);
             else if (context.canceled)
-                movementController.SetMovementState(walkState);
+                movement.SetMovementState(walkState);
         }
     }
 }
