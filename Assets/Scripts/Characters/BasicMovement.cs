@@ -23,12 +23,12 @@ namespace cmp2804.Characters
             LookTarget = new Target(transform.forward);
         }
 
-        public void Update()
+        void Update()
         {
             IncrementMovement();
             IncrementRotation();
         }
-
+        
         public void IncrementMovement()
         {
             if (!CanMove) return;

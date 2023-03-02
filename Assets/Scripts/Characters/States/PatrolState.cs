@@ -5,15 +5,17 @@ using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(BasicMovement))]
+    [RequireComponent(typeof(NavmeshMovement))]
     [HideMonoScript]
     public class PatrolState : SerializedMonoBehaviour, IEnemyState
     {
         // Components
-        private BasicMovement _basicMovement;
+        private IMovement _movement;
+        private NavMeshAgent _agent;
         
         // Properties
         [Title("Patrol Nodes", "The nodes the enemy will patrol between.")]
@@ -23,7 +25,8 @@ namespace cmp2804.Characters.States
         // Methods
         private void Awake()
         {
-            _basicMovement = gameObject.GetComponent<BasicMovement>();
+            _movement = gameObject.GetComponent<IMovement>();
+            _agent = gameObject.GetComponent<NavMeshAgent>();
             SetNextMovementTarget();
         }
 
@@ -34,12 +37,11 @@ namespace cmp2804.Characters.States
 
         public async Task TickState()
         {
-            var distanceToTarget = Vector3.Distance(_basicMovement.MoveTarget.Origin, transform.position);
-            if (distanceToTarget > 0.1f) return;
-            _basicMovement.CanMove = false;
+            if (_agent.remainingDistance != 0) return;
+            _movement.CanMove = false;
             SetNextMovementTarget();
             await Task.Delay(_patrolDelay);
-            _basicMovement.CanMove = true;
+            _movement.CanMove = true;
         }
         
         /// <summary>
@@ -49,8 +51,8 @@ namespace cmp2804.Characters.States
         {
             var nextTarget = PatrolNodes.Dequeue();
             PatrolNodes.Enqueue(nextTarget);
-            _basicMovement.MoveTarget = new Target(nextTarget);
-            _basicMovement.LookTarget = new Target(nextTarget);
+            _movement.MoveTarget = new Target(nextTarget);
+            _movement.LookTarget = new Target(nextTarget);
         }
     }
 }
