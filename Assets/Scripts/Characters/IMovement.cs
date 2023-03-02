@@ -1,4 +1,4 @@
-namespace Characters
+namespace cmp2804.Characters
 {
     public interface IMovement
     {
