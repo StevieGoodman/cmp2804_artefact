@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 438976813}
   - component: {fileID: 438976812}
   - component: {fileID: 438976816}
+  - component: {fileID: 438976818}
   - component: {fileID: 438976817}
   m_Layer: 0
   m_Name: Enemy Character
@@ -644,16 +645,16 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 438976817}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  movementState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
-  moveTarget: {fileID: 0}
-  lookTarget: {fileID: 0}
-  canMove: 1
+    SerializationNodes:
+    - Name: _state
+      Entry: 10
+      Data: 0
 --- !u!114 &438976817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,14 +670,119 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 643548023}
+    - {fileID: 1004150621}
+    - {fileID: 303654356}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  movement: {fileID: 438976816}
-  patrolNodesParent: {fileID: 1909012734}
+    SerializationNodes:
+    - Name: PatrolNodes
+      Entry: 7
+      Data: 0|System.Collections.Generic.Queue`1[[UnityEngine.Transform, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+--- !u!114 &438976818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438976807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcab48d6d704b93aa9cdb41c6b75022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CanMove
+      Entry: 5
+      Data: true
+    - Name: MoveTarget
+      Entry: 7
+      Data: cmp2804.Math.Target, Scripts
+    - Name: _transformTarget
+      Entry: 6
+      Data: 
+    - Name: _vectorTarget
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: LookTarget
+      Entry: 7
+      Data: cmp2804.Math.Target, Scripts
+    - Name: _transformTarget
+      Entry: 6
+      Data: 
+    - Name: _vectorTarget
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MovementState
+      Entry: 10
+      Data: 0
 --- !u!1 &556824467
 GameObject:
   m_ObjectHideFlags: 0
