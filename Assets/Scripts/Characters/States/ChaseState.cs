@@ -1,10 +1,9 @@
-using System;
 using System.Threading.Tasks;
 using cmp2804.Math;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace cmp2804.Characters
+namespace cmp2804.Characters.States
 {
     [RequireComponent(typeof(EnemyController))]
     public class ChaseState : SerializedMonoBehaviour, IEnemyState

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace cmp2804.Characters
+namespace cmp2804.Characters.States
 {
     public interface IEnemyState
     {
