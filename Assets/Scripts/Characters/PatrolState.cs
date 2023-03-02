@@ -20,7 +20,7 @@ namespace cmp2804.Characters
             _patrolNodes = new Queue<Transform>();
             foreach (Transform patrolNode in patrolNodesParent)
                 _patrolNodes.Enqueue(patrolNode);
-            SetNextTarget();
+            SetNextMovementTarget();
         }
 
         public void UpdateState()
@@ -33,7 +33,7 @@ namespace cmp2804.Characters
             var distanceToTarget = Vector3.Distance(movement.moveTarget.position, transform.position);
             if (distanceToTarget > 0.1f) return;
             movement.canMove = false;
-            SetNextTarget();
+            SetNextMovementTarget();
             await Task.Delay(_patrolDelay);
             movement.canMove = true;
         }
@@ -41,7 +41,7 @@ namespace cmp2804.Characters
         /// <summary>
         /// Sets <see cref="moveTarget" /> & <see cref="lookTarget" /> to the position of the next patrol node.
         /// </summary>
-        private void SetNextTarget()
+        private void SetNextMovementTarget()
         {
             var nextTarget = _patrolNodes.Dequeue();
             _patrolNodes.Enqueue(nextTarget);
