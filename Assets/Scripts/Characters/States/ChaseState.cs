@@ -8,12 +8,12 @@ namespace cmp2804.Characters.States
     [RequireComponent(typeof(EnemyController))]
     public class ChaseState : SerializedMonoBehaviour, IEnemyState
     {
-        private Movement _movement;
+        private BasicMovement _basicMovement;
         private Transform _playerCharacterTransform;
 
         private void Awake()
         {
-            _movement = gameObject.GetComponent<Movement>();
+            _basicMovement = gameObject.GetComponent<BasicMovement>();
             try
             {
                 _playerCharacterTransform = GameObject.FindWithTag("Player")?.transform;
@@ -31,8 +31,8 @@ namespace cmp2804.Characters.States
 
         public async Task TickState()
         {
-            _movement.MoveTarget = new Target(_playerCharacterTransform);
-            _movement.LookTarget = new Target(_playerCharacterTransform);
+            _basicMovement.MoveTarget = new Target(_playerCharacterTransform);
+            _basicMovement.LookTarget = new Target(_playerCharacterTransform);
             await Task.Delay(0);
         }
     }

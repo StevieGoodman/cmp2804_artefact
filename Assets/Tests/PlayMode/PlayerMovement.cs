@@ -39,16 +39,16 @@ namespace Tests.PlayMode
         }
         
         private static void SetupPlayerCharacter(
-            out Movement movement, out MovementState movementState, out Transform transform)
+            out BasicMovement basicMovement, out MovementState movementState, out Transform transform)
         {
             var player = new GameObject("Player");
-            movement = player.AddComponent<Movement>();
+            basicMovement = player.AddComponent<BasicMovement>();
             movementState = ScriptableObject.CreateInstance<MovementState>();
             transform = player.transform;
             movementState.moveSpeed = 100f;
             movementState.rotationSpeed = 2f;
-            movement.MovementState = movementState;
-            movement.MoveTarget = new Target(Vector3.forward);
+            basicMovement.MovementState = movementState;
+            basicMovement.MoveTarget = new Target(Vector3.forward);
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace cmp2804.Characters
 {
     [HideMonoScript]
-    public class Movement : SerializedMonoBehaviour
+    public class BasicMovement : SerializedMonoBehaviour, IMovement
     {
         // Properties
         [OdinSerialize] public bool CanMove { get; set; } = true;
@@ -17,25 +17,25 @@ namespace cmp2804.Characters
         [OdinSerialize] public MovementState MovementState { private get; set; }
 
         // Methods
-        private void Awake()
+        public void Awake()
         {
             MoveTarget = new Target(gameObject);
             LookTarget = new Target(transform.forward);
         }
 
-        private void Update()
+        public void Update()
         {
             IncrementMovement();
             IncrementRotation();
         }
-        
-        private void IncrementMovement()
+
+        public void IncrementMovement()
         {
             if (!CanMove) return;
             transform.position += MoveTarget.GetVector(transform) * (MovementState.moveSpeed * Time.deltaTime);
         }
 
-        private void IncrementRotation()
+        public void IncrementRotation()
         {
             var lookVector = LookTarget.GetVector(transform);
             if (lookVector == Vector3.zero) return;

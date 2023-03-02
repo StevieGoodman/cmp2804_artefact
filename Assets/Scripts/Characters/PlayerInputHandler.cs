@@ -7,27 +7,27 @@ using UnityEngine.InputSystem;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(Movement))]
+    [RequireComponent(typeof(BasicMovement))]
     [HideMonoScript]
     public class PlayerInputHandler : SerializedMonoBehaviour
     {
         [Title("Component Fields", "The components required for the character controller.")]
-        private Movement _movement;
+        private BasicMovement _basicMovement;
 
         [Title("Movement States", "The possible states the player can move in.")]
         [OdinSerialize] private Dictionary<string, MovementState> _movementStates;
 
         private void Awake()
         {
-            _movement = GetComponent<Movement>();
+            _basicMovement = GetComponent<BasicMovement>();
         }
 
         public void SetMoveDirection(InputAction.CallbackContext context)
         {
             var direction = (Vector3)context.ReadValue<Vector2>();
             var vector3 = new Vector3(direction.x, 0, direction.y);
-            _movement.MoveTarget = new Target(vector3);
-            _movement.LookTarget = new Target(vector3);
+            _basicMovement.MoveTarget = new Target(vector3);
+            _basicMovement.LookTarget = new Target(vector3);
         }
 
         public void Crawl(InputAction.CallbackContext context)
@@ -50,7 +50,7 @@ namespace cmp2804.Characters
             if (context.canceled)
                 newStateName = "Walk"; 
             _movementStates.TryGetValue(newStateName, out var newState);
-            _movement.MovementState = newState;
+            _basicMovement.MovementState = newState;
         }
     }
 }

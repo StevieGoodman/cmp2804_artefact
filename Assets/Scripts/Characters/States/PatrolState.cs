@@ -8,12 +8,12 @@ using UnityEngine;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(Movement))]
+    [RequireComponent(typeof(BasicMovement))]
     [HideMonoScript]
     public class PatrolState : SerializedMonoBehaviour, IEnemyState
     {
         // Components
-        private Movement _movement;
+        private BasicMovement _basicMovement;
         
         // Properties
         [Title("Patrol Nodes", "The nodes the enemy will patrol between.")]
@@ -23,7 +23,7 @@ namespace cmp2804.Characters.States
         // Methods
         private void Awake()
         {
-            _movement = gameObject.GetComponent<Movement>();
+            _basicMovement = gameObject.GetComponent<BasicMovement>();
             SetNextMovementTarget();
         }
 
@@ -34,12 +34,12 @@ namespace cmp2804.Characters.States
 
         public async Task TickState()
         {
-            var distanceToTarget = Vector3.Distance(_movement.MoveTarget.Origin, transform.position);
+            var distanceToTarget = Vector3.Distance(_basicMovement.MoveTarget.Origin, transform.position);
             if (distanceToTarget > 0.1f) return;
-            _movement.CanMove = false;
+            _basicMovement.CanMove = false;
             SetNextMovementTarget();
             await Task.Delay(_patrolDelay);
-            _movement.CanMove = true;
+            _basicMovement.CanMove = true;
         }
         
         /// <summary>
@@ -49,8 +49,8 @@ namespace cmp2804.Characters.States
         {
             var nextTarget = PatrolNodes.Dequeue();
             PatrolNodes.Enqueue(nextTarget);
-            _movement.MoveTarget = new Target(nextTarget);
-            _movement.LookTarget = new Target(nextTarget);
+            _basicMovement.MoveTarget = new Target(nextTarget);
+            _basicMovement.LookTarget = new Target(nextTarget);
         }
     }
 }
