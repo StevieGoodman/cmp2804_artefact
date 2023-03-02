@@ -29,6 +29,24 @@ namespace cmp2804.Math
             }
         }
 
+        // Methods
+        /// <summary>
+        /// Retrieves the vector from the transform to the target.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public Vector3 GetVector(Transform transform)
+        {
+            return _targetType switch
+            {
+                TargetType.Transform => (_transformTarget.position - transform.position).normalized,
+                TargetType.Vector => _vectorTarget.normalized,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+        
+        // Constructors
         public Target(GameObject gameObject)
             : this(gameObject.transform) {}
         public Target(Transform transform)
@@ -45,7 +63,7 @@ namespace cmp2804.Math
         }
     }
 
-    internal enum TargetType
+    public enum TargetType
     {
         Transform,
         Vector

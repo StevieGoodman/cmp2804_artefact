@@ -1,3 +1,4 @@
+using System;
 using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -16,6 +17,12 @@ namespace cmp2804.Characters
         [OdinSerialize] public MovementState MovementState { private get; set; }
 
         // Methods
+        private void Awake()
+        {
+            MoveTarget = new Target(gameObject);
+            LookTarget = new Target(transform.forward);
+        }
+
         private void Update()
         {
             IncrementMovement();
@@ -25,13 +32,12 @@ namespace cmp2804.Characters
         private void IncrementMovement()
         {
             if (!CanMove) return;
-            var moveVector = (MoveTarget.Origin - transform.position).normalized;
-            transform.position += moveVector * (MovementState.moveSpeed * Time.deltaTime);
+            transform.position += MoveTarget.GetVector(transform) * (MovementState.moveSpeed * Time.deltaTime);
         }
 
         private void IncrementRotation()
         {
-            var lookVector = (LookTarget.Origin - transform.position).normalized;
+            var lookVector = LookTarget.GetVector(transform);
             if (lookVector == Vector3.zero) return;
             var rotationSpeed = 360 * Time.deltaTime / MovementState.rotationSpeed;
             transform.rotation = Quaternion.RotateTowards(

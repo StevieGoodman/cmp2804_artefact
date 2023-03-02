@@ -1,5 +1,6 @@
 using System.Collections;
 using cmp2804.Characters;
+using cmp2804.Math;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
@@ -11,11 +12,11 @@ namespace Tests.PlayMode
         [UnityTest]
         public IEnumerator IncrementMovement()
         {
-            SetupPlayerCharacter(out var movement, out var movementState, out var rigidBody);
-            var oldPosition = rigidBody.position;
+            SetupPlayerCharacter(out var movement, out var movementState, out var transform);
+            var oldPosition = transform.position;
             yield return null;
-            var newPosition = rigidBody.position;
-            var targetPosition = oldPosition + movement.MoveDirection * (Time.deltaTime * movementState.moveSpeed);
+            var newPosition = transform.position;
+            var targetPosition = oldPosition + movement.MoveTarget.Origin * (Time.deltaTime * movementState.moveSpeed);
             Assert.AreEqual(
                 newPosition, 
                 targetPosition);
@@ -25,7 +26,7 @@ namespace Tests.PlayMode
         public IEnumerator IncrementRotation()
         {
             SetupPlayerCharacter(out var movement, out var movementState, out var rigidBody);
-            movement.SetMoveDirection(Vector3.left);
+            movement.MoveTarget = new Target(Vector3.left);
             var oldRotation = rigidBody.rotation;
             yield return null;
             var newRotation = rigidBody.rotation;
@@ -38,16 +39,16 @@ namespace Tests.PlayMode
         }
         
         private static void SetupPlayerCharacter(
-            out cmp2804.Characters.PlayerMovement movement, out MovementState movementState, out Rigidbody rigidBody)
+            out Movement movement, out MovementState movementState, out Transform transform)
         {
             var player = new GameObject("Player");
-            movement = player.AddComponent<cmp2804.Characters.PlayerMovement>();
-            movementState = ScriptableObject.CreateInstance<cmp2804.Characters.MovementState>();
-            rigidBody = player.GetComponent<Rigidbody>();
+            movement = player.AddComponent<Movement>();
+            movementState = ScriptableObject.CreateInstance<MovementState>();
+            transform = player.transform;
             movementState.moveSpeed = 100f;
             movementState.rotationSpeed = 2f;
             movement.MovementState = movementState;
-            movement.SetMoveDirection(Vector3.forward);
+            movement.MoveTarget = new Target(Vector3.forward);
         }
     }
 }

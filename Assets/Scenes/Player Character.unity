@@ -136,8 +136,8 @@ GameObject:
   - component: {fileID: 3304484}
   - component: {fileID: 3304483}
   - component: {fileID: 3304482}
-  - component: {fileID: 3304488}
   - component: {fileID: 3304489}
+  - component: {fileID: 3304490}
   - component: {fileID: 3304487}
   m_Layer: 0
   m_Name: Player Character
@@ -334,30 +334,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player Character
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3304488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3304481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e2712491cf74009a29cd5018427380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  rigidBody: {fileID: 3304482}
-  <MovementState>k__BackingField: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
-  <MoveDirection>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &3304489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,17 +349,166 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+    - {fileID: 11400000, guid: cb140dc0b36e84a3e81752de6198e4d8, type: 2}
+    - {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
+    - {fileID: 11400000, guid: 0ec1c445d3d5943baad06cf511b2c4f7, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  movement: {fileID: 3304488}
-  crawlState: {fileID: 11400000, guid: cb140dc0b36e84a3e81752de6198e4d8, type: 2}
-  crouchState: {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
-  walkState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
-  jogState: {fileID: 11400000, guid: 0ec1c445d3d5943baad06cf511b2c4f7, type: 2}
+    SerializationNodes:
+    - Name: _movementStates
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[cmp2804.Characters.MovementState,
+        Scripts]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Walk
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Crawl
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Crouch
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Jog
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+--- !u!114 &3304490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcab48d6d704b93aa9cdb41c6b75022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CanMove
+      Entry: 5
+      Data: true
+    - Name: MoveTarget
+      Entry: 7
+      Data: cmp2804.Math.Target, Scripts
+    - Name: _transformTarget
+      Entry: 6
+      Data: 
+    - Name: _vectorTarget
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: LookTarget
+      Entry: 7
+      Data: cmp2804.Math.Target, Scripts
+    - Name: _transformTarget
+      Entry: 6
+      Data: 
+    - Name: _vectorTarget
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _targetType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: MovementState
+      Entry: 10
+      Data: 0
 --- !u!1 &303654355
 GameObject:
   m_ObjectHideFlags: 0
