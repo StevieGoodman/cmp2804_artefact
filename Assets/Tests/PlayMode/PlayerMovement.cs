@@ -12,10 +12,10 @@ namespace Tests.PlayMode
         [UnityTest]
         public IEnumerator IncrementMovement()
         {
-            SetupPlayerCharacter(out var movement, out var movementState, out var transform);
-            var oldPosition = transform.position;
+            SetupPlayerCharacter(out var movement, out var movementState, out var rigidbody);
+            var oldPosition = rigidbody.position;
             yield return null;
-            var newPosition = transform.position;
+            var newPosition = rigidbody.position;
             var targetPosition = oldPosition + movement.MoveTarget.Origin * (Time.deltaTime * movementState.moveSpeed);
             Assert.AreEqual(
                 newPosition, 
@@ -39,12 +39,12 @@ namespace Tests.PlayMode
         }
         
         private static void SetupPlayerCharacter(
-            out BasicMovement basicMovement, out MovementState movementState, out Transform transform)
+            out BasicMovement basicMovement, out MovementState movementState, out Rigidbody rigidbody)
         {
             var player = new GameObject("Player");
             basicMovement = player.AddComponent<BasicMovement>();
             movementState = ScriptableObject.CreateInstance<MovementState>();
-            transform = player.transform;
+            rigidbody = player.GetComponent<Rigidbody>();
             movementState.moveSpeed = 100f;
             movementState.rotationSpeed = 2f;
             basicMovement.MovementState = movementState;
