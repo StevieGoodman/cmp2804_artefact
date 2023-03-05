@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace cmp2804.Characters
 {
+    [RequireComponent(typeof(Rigidbody))]
     [HideMonoScript]
     public class BasicMovement : SerializedMonoBehaviour, IMovement
     {
@@ -15,14 +16,18 @@ namespace cmp2804.Characters
         [Required]
         [OdinSerialize] public MovementState MovementState { private get; set; }
 
+        // Fields
+        private Rigidbody _rigidbody;
+        
         // Methods
         public void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody>();
             MoveTarget = new Target(gameObject);
             LookTarget = new Target(transform.forward);
         }
 
-        void Update()
+        private void Update()
         {
             IncrementMovement();
             IncrementRotation();
@@ -31,7 +36,8 @@ namespace cmp2804.Characters
         public void IncrementMovement()
         {
             if (!CanMove) return;
-            transform.position += MoveTarget.GetVector(transform) * (MovementState.moveSpeed * Time.deltaTime);
+            var movementOffset = MoveTarget.GetVector(transform) * (MovementState.moveSpeed * Time.deltaTime);
+            _rigidbody.MovePosition(_rigidbody.position + movementOffset);
         }
 
         public void IncrementRotation()
@@ -39,11 +45,12 @@ namespace cmp2804.Characters
             var lookVector = LookTarget.GetVector(transform);
             if (lookVector == Vector3.zero) return;
             var rotationSpeed = 360 * Time.deltaTime / MovementState.rotationSpeed;
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
+            var newRotation = Quaternion.RotateTowards(
+                _rigidbody.rotation,
                 Quaternion.LookRotation(lookVector),
                 rotationSpeed
             );
+            _rigidbody.MoveRotation(newRotation);
         }
     }
 }
