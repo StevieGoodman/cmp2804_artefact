@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using cmp2804.Characters.Movement;
 using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -9,12 +10,10 @@ using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(NavmeshMovement))]
     [HideMonoScript]
     public class PatrolState : SerializedMonoBehaviour, IEnemyState
     {
         // Components
-        private IMovement _movement;
         private NavMeshAgent _agent;
         
         // Properties
@@ -25,7 +24,6 @@ namespace cmp2804.Characters.States
         // Methods
         private void Awake()
         {
-            _movement = gameObject.GetComponent<IMovement>();
             _agent = gameObject.GetComponent<NavMeshAgent>();
             SetNextMovementTarget();
         }
@@ -38,10 +36,10 @@ namespace cmp2804.Characters.States
         public async Task TickState()
         {
             if (_agent.remainingDistance != 0) return;
-            _movement.CanMove = false;
+            _agent.isStopped = true;
             SetNextMovementTarget();
             await Task.Delay(_patrolDelay);
-            _movement.CanMove = true;
+            _agent.isStopped = false;
         }
         
         /// <summary>
@@ -51,8 +49,7 @@ namespace cmp2804.Characters.States
         {
             var nextTarget = PatrolNodes.Dequeue();
             PatrolNodes.Enqueue(nextTarget);
-            _movement.MoveTarget = new Target(nextTarget);
-            _movement.LookTarget = new Target(nextTarget);
+            _agent.SetDestination(nextTarget.position);
         }
     }
 }

@@ -137,8 +137,9 @@ GameObject:
   - component: {fileID: 3304483}
   - component: {fileID: 3304482}
   - component: {fileID: 3304489}
-  - component: {fileID: 3304490}
   - component: {fileID: 3304487}
+  - component: {fileID: 3304492}
+  - component: {fileID: 3304491}
   m_Layer: 0
   m_Name: Player Character
   m_TagString: Player
@@ -349,16 +350,85 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+    - {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
+    - {fileID: 11400000, guid: cb140dc0b36e84a3e81752de6198e4d8, type: 2}
+    - {fileID: 11400000, guid: 0ec1c445d3d5943baad06cf511b2c4f7, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
     - Name: _movementStates
-      Entry: 6
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[cmp2804.Characters.MovementState,
+        Scripts]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
       Data: 
---- !u!114 &3304490
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Walk
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Crouch
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Crawl
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Jog
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+--- !u!114 &3304491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,7 +437,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3304481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcab48d6d704b93aa9cdb41c6b75022, type: 3}
+  m_Script: {fileID: 11500000, guid: c5f67fab190949bd98cfa520689457cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -383,7 +453,7 @@ MonoBehaviour:
     - Name: CanMove
       Entry: 5
       Data: true
-    - Name: MoveTarget
+    - Name: Target
       Entry: 7
       Data: cmp2804.Math.Target, Scripts
     - Name: _transformTarget
@@ -410,7 +480,35 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: LookTarget
+    - Name: MovementState
+      Entry: 10
+      Data: 0
+--- !u!114 &3304492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828a27ddcb7243cf85e15a2bd68e2484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CanMove
+      Entry: 5
+      Data: true
+    - Name: Target
       Entry: 7
       Data: cmp2804.Math.Target, Scripts
     - Name: _transformTarget
@@ -748,7 +846,6 @@ GameObject:
   - component: {fileID: 438976812}
   - component: {fileID: 438976816}
   - component: {fileID: 438976817}
-  - component: {fileID: 438976820}
   - component: {fileID: 438976819}
   m_Layer: 0
   m_Name: Enemy Character
@@ -935,7 +1032,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 100000
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -944,61 +1041,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &438976820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438976807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25deb3e59a540939400706f1de44b0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: CanMove
-      Entry: 5
-      Data: true
-    - Name: LookTarget
-      Entry: 7
-      Data: cmp2804.Math.Target, Scripts
-    - Name: _transformTarget
-      Entry: 6
-      Data: 
-    - Name: _vectorTarget
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _targetType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: MovementState
-      Entry: 10
-      Data: 0
 --- !u!1 &556824467
 GameObject:
   m_ObjectHideFlags: 0

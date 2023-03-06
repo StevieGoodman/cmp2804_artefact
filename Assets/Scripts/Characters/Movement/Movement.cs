@@ -1,6 +1,7 @@
 using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using UnityEngine;
 
 namespace cmp2804.Characters.Movement
 {
@@ -9,7 +10,7 @@ namespace cmp2804.Characters.Movement
         /// <summary>
         /// Whether the character can move.
         /// </summary>
-        [OdinSerialize] public bool CanMove { get; set; }
+        [OdinSerialize] public bool CanMove { get; set; } = true;
 
         /// <summary>
         /// The target to look in the direction of.
@@ -20,6 +21,13 @@ namespace cmp2804.Characters.Movement
         /// The movement state that defines the characteristics of movement.
         /// </summary>
         [OdinSerialize, InlineEditor] public MovementState MovementState { get; set; }
+
+        protected Rigidbody RigidBody;
+        
+        private void Awake()
+        {
+            RigidBody = GetComponent<Rigidbody>();
+        }
         
         protected void Update()
         {
