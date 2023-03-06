@@ -7,7 +7,7 @@ namespace cmp2804.Characters
 {
     [RequireComponent(typeof(Rigidbody))]
     [HideMonoScript]
-    public class BasicMovement : SerializedMonoBehaviour, IMovement
+    public class BasicMovement : SerializedMonoBehaviour
     {
         // Properties
         [OdinSerialize] public bool CanMove { get; set; } = true;
