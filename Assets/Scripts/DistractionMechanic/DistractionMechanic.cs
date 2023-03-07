@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace cmp2804.Characters
+namespace cmp2804.DistractionMechanic
 {
     public class DistractionMechanic : MonoBehaviour
     {

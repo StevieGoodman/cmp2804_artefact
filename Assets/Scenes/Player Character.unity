@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 3304488}
   - component: {fileID: 3304489}
   - component: {fileID: 3304487}
+  - component: {fileID: 3304490}
   m_Layer: 0
   m_Name: Player Character
   m_TagString: Player
@@ -384,6 +385,21 @@ MonoBehaviour:
   crouchState: {fileID: 11400000, guid: 2cc2b62c173e04be0b757b723f96aec7, type: 2}
   walkState: {fileID: 11400000, guid: 2aae986b81f2849cc97bf9bece8db5ee, type: 2}
   jogState: {fileID: 11400000, guid: 0ec1c445d3d5943baad06cf511b2c4f7, type: 2}
+--- !u!114 &3304490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418130b3f7fdc0846be166d039f440ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwable: {fileID: 7027743589124942251, guid: bb2a4dec86620e347b878430e8a1304f, type: 3}
+  throwForce: 10
+  objectLifetime: 5
 --- !u!1 &397557051
 GameObject:
   m_ObjectHideFlags: 0
