@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using cmp2804.Math;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace cmp2804.Characters.States
 {
     [RequireComponent(typeof(EnemyController))]
-    public class ChaseState : SerializedMonoBehaviour, IEnemyState
+    public class ChaseState : EnemyState
     {
         private BasicMovement _basicMovement;
         private Transform _playerCharacterTransform;
@@ -24,12 +23,12 @@ namespace cmp2804.Characters.States
             }
         }
 
-        public void UpdateState()
+        public override void UpdateState()
         {
             
         }
 
-        public async Task TickState()
+        public override async Task TickState()
         {
             _basicMovement.MoveTarget = new Target(_playerCharacterTransform);
             _basicMovement.LookTarget = new Target(_playerCharacterTransform);

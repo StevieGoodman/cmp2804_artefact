@@ -1,17 +1,18 @@
 using System.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 namespace cmp2804.Characters.States
 {
-    public interface IEnemyState
+    public abstract class EnemyState : SerializedMonoBehaviour
     {
         /// <summary>
         /// Updates the character's state.
         /// </summary>
-        void UpdateState();
+        public abstract void UpdateState();
         
         /// <summary>
         /// Performs actions for this state.
         /// </summary>
-        Task TickState();
+        public abstract Task TickState();
     }
 }

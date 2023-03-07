@@ -10,7 +10,7 @@ namespace cmp2804.Characters
     public class EnemyController : SerializedMonoBehaviour
     {
         [Title("State", "The current state defining the enemy's behaviour.")]
-        [OdinSerialize, HideLabel] private IEnemyState _state;
+        [OdinSerialize, HideLabel] private EnemyState _state;
 
         private void Awake()
         {

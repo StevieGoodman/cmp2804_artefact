@@ -11,7 +11,7 @@ using UnityEngine.AI;
 namespace cmp2804.Characters.States
 {
     [HideMonoScript]
-    public class PatrolState : SerializedMonoBehaviour, IEnemyState
+    public class PatrolState : EnemyState
     {
         // Components
         private NavMeshAgent _agent;
@@ -28,12 +28,12 @@ namespace cmp2804.Characters.States
             SetNextMovementTarget();
         }
 
-        public void UpdateState()
+        public override void UpdateState()
         {
             
         }
 
-        public async Task TickState()
+        public override async Task TickState()
         {
             if (_agent.remainingDistance != 0) return;
             _agent.isStopped = true;
