@@ -5,7 +5,7 @@ using UnityEngine.AI;
 namespace cmp2804.Characters.States
 {
     [RequireComponent(typeof(EnemyController))]
-    public class ChaseState : EnemyState
+    public class Chase : EnemyState
     {
         private NavMeshAgent _navMeshAgent;
         private Transform _playerCharacterTransform;

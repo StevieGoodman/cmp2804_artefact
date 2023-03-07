@@ -11,7 +11,7 @@ using UnityEngine.AI;
 namespace cmp2804.Characters.States
 {
     [HideMonoScript]
-    public class PatrolState : EnemyState
+    public class Patrol : EnemyState
     {
         // Components
         private NavMeshAgent _agent;

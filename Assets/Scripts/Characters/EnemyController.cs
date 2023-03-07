@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(PatrolState))]
+    [RequireComponent(typeof(Patrol))]
     [HideMonoScript]
     public class EnemyController : SerializedMonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace cmp2804.Characters
 
         private void Awake()
         {
-            _state = gameObject.GetComponent<PatrolState>();
+            _state = gameObject.GetComponent<Patrol>();
         }
 
         public async void FixedUpdate()
