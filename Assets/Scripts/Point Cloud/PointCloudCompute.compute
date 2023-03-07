@@ -6,8 +6,8 @@ RWStructuredBuffer<float> lifespanScales;
 float deltaTime;
 
 [numthreads(32,1,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
+void CSMain(uint3 id : SV_DispatchThreadID)
 {
-   const int index = id.x;
-   lifespans[index] = max(0, lifespans[index] - deltaTime / lifespanScales[index]);
+    const int index = id.x;
+    lifespans[index] = max(0, lifespans[index] - deltaTime / lifespanScales[index]);
 }

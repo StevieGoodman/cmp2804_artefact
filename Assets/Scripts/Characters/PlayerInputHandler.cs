@@ -1,8 +1,6 @@
-using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace cmp2804.Characters
 {
@@ -10,20 +8,18 @@ namespace cmp2804.Characters
     [HideMonoScript]
     public class PlayerInputHandler : SerializedMonoBehaviour
     {
-        [Title("Component Fields", "The components required for the character controller.")]
-        [SerializeField, Required]
+        [Title("Component Fields", "The components required for the character controller.")] [SerializeField] [Required]
         private PlayerMovementController movementController;
 
-        [Title("Movement States", "The possible states the player can move in.")] 
-        [SerializeField, Required]
+        [Title("Movement States", "The possible states the player can move in.")] [SerializeField] [Required]
         private MovementState crawlState;
-        [SerializeField, Required] 
-        private MovementState crouchState;
-        [SerializeField, Required] 
-        private MovementState walkState;
-        [SerializeField, Required] 
-        private MovementState jogState;
-        
+
+        [SerializeField] [Required] private MovementState crouchState;
+
+        [SerializeField] [Required] private MovementState walkState;
+
+        [SerializeField] [Required] private MovementState jogState;
+
         public void SetMoveDirection(InputAction.CallbackContext context)
         {
             var direction = (Vector3)context.ReadValue<Vector2>();
@@ -34,7 +30,7 @@ namespace cmp2804.Characters
         {
             SetMovementState(context, crawlState);
         }
-        
+
         public void Crouch(InputAction.CallbackContext context)
         {
             SetMovementState(context, crouchState);
