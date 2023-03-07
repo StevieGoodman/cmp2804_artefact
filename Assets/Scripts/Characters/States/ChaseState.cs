@@ -1,26 +1,32 @@
 using System.Threading.Tasks;
-using cmp2804.Math;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
     [RequireComponent(typeof(EnemyController))]
     public class ChaseState : EnemyState
     {
-        private BasicMovement _basicMovement;
+        private NavMeshAgent _navMeshAgent;
         private Transform _playerCharacterTransform;
 
         private void Awake()
         {
-            _basicMovement = gameObject.GetComponent<BasicMovement>();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _playerCharacterTransform = GetPlayerCharacterTransform();
+        }
+
+        private Transform GetPlayerCharacterTransform()
+        {
             try
             {
-                _playerCharacterTransform = GameObject.FindWithTag("Player")?.transform;
+                return GameObject.FindWithTag("Player")?.transform;
             }
             catch (UnityException)
             {
                 Debug.LogError("No GameObject with tag \"Player\" could be found");
             }
+            return null;
         }
 
         public override void UpdateState()
@@ -30,8 +36,7 @@ namespace cmp2804.Characters.States
 
         public override async Task TickState()
         {
-            _basicMovement.MoveTarget = new Target(_playerCharacterTransform);
-            _basicMovement.LookTarget = new Target(_playerCharacterTransform);
+            _navMeshAgent.destination = _playerCharacterTransform.position;
             await Task.Delay(0);
         }
     }
