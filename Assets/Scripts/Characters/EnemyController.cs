@@ -9,18 +9,19 @@ namespace cmp2804.Characters
     [HideMonoScript]
     public class EnemyController : SerializedMonoBehaviour
     {
-        [Title("State", "The current state defining the enemy's behaviour.")]
-        [OdinSerialize, HideLabel] private EnemyState _state;
+        [Title("State", "The current state defining the enemy's behaviour.")] 
+        [OdinSerialize, HideLabel]
+        public EnemyState State { get; set; }
 
         private void Awake()
         {
-            _state = gameObject.GetComponent<Patrol>();
+            State = gameObject.GetComponent<Patrol>();
         }
 
         public async void FixedUpdate()
         {
-            await _state.TickState();
-            _state.UpdateState();
+            await State.TickState();
+            State.UpdateState();
         }
     }
 }

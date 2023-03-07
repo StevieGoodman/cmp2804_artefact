@@ -31,7 +31,7 @@ namespace cmp2804.Characters.States
 
         public override void UpdateState()
         {
-            
+            // TODO: Implement this method.
         }
 
         public override async Task TickState()
