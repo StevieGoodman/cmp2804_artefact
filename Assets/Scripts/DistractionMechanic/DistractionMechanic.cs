@@ -10,35 +10,41 @@ namespace cmp2804.DistractionMechanic
     {
         public GameObject throwable;
         public float throwForce = 10f;
-        public float objectLifetime = 5f;
 
         private InputAction _throwAction;
-        private Collider _playerCollider;
         
-        private void Start()
+        public void Awake()
         {
-            _playerCollider = GetComponent<Collider>();
+            _throwAction = new InputAction(binding: "<Mouse>/leftButton");
+            _throwAction.performed += ThrowOnPerformed;
         }
 
         private void OnEnable()
         {
-            _throwAction = new InputAction("Throw", InputActionType.Button, "<Mouse>/leftButton");
             _throwAction.Enable();
-            _throwAction.performed += _ => ThrowObject();
         }
 
         private void OnDisable()
         {
             _throwAction.Disable();
-            _throwAction.performed -= _ => ThrowObject();
         }
 
-        private void ThrowObject()
+        private void ThrowOnPerformed(InputAction.CallbackContext context)
         {
-            var thrownObject = Instantiate(throwable, transform.position, transform.rotation);
-            Physics.IgnoreCollision(thrownObject.GetComponent<Collider>(), _playerCollider);
-            thrownObject.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
-            Destroy(thrownObject, objectLifetime);
+            GameObject throwableObject = Instantiate(throwable, transform.position, transform.rotation);
+
+            Collider playerCollider = GetComponent<Collider>();
+            Collider throwableCollider = throwableObject.GetComponent<Collider>();
+
+            if (playerCollider != null && throwableCollider != null)
+            {
+                Physics.IgnoreCollision(playerCollider, throwableCollider);
+            }
+            
+            Rigidbody throwableRigidbody = throwableObject.GetComponent<Rigidbody>();
+            throwableRigidbody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+
+            DistractionSource distractionSource = new DistractionSource(throwableObject.transform.position, 5f);
         }
     }
 }

@@ -399,7 +399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwable: {fileID: 7027743589124942251, guid: bb2a4dec86620e347b878430e8a1304f, type: 3}
   throwForce: 10
-  objectLifetime: 5
 --- !u!1 &397557051
 GameObject:
   m_ObjectHideFlags: 0
