@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(EnemyController), typeof(Patrol), typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyController), typeof(NavMeshAgent))]
     [HideMonoScript]
     class Investigate : EnemyState
     {

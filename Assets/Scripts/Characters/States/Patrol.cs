@@ -11,7 +11,7 @@ using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(EnemyController), typeof(Chase), typeof(Sight))]
+    [RequireComponent(typeof(EnemyController))]
     [HideMonoScript]
     public class Patrol : EnemyState
     {

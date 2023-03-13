@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(Patrol), typeof(Chase), typeof(Sight))]
+    [RequireComponent(typeof(Patrol), typeof(Chase))]
+    [RequireComponent(typeof(Sight), typeof(Investigate))]
     [HideMonoScript]
     public class EnemyController : SerializedMonoBehaviour
     {
