@@ -1,18 +1,25 @@
 using System.Threading.Tasks;
+using cmp2804.Characters.Detection;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
-    [RequireComponent(typeof(EnemyController))]
+    [RequireComponent(typeof(EnemyController), typeof(Sight), typeof(NavMeshAgent))]
     public class Chase : EnemyState
     {
         private NavMeshAgent _navMeshAgent;
+        private Sight _sight;
+        private EnemyController _enemyController;
+        private Patrol _patrol;
         private Transform _playerCharacterTransform;
 
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _sight = GetComponent<Sight>();
+            _enemyController = GetComponent<EnemyController>();
+            _patrol = GetComponent<Patrol>();
             _playerCharacterTransform = GetPlayerCharacterTransform();
         }
 
@@ -31,7 +38,8 @@ namespace cmp2804.Characters.States
 
         public override void UpdateState()
         {
-            // TODO: Implement this method.
+            if (!_sight.PlayerInSight())
+                _enemyController.State = _patrol;
         }
 
         public override async Task TickState()

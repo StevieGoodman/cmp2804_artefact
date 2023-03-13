@@ -846,9 +846,10 @@ GameObject:
   - component: {fileID: 438976812}
   - component: {fileID: 438976816}
   - component: {fileID: 438976817}
-  - component: {fileID: 438976819}
   - component: {fileID: 438976821}
   - component: {fileID: 438976820}
+  - component: {fileID: 438976822}
+  - component: {fileID: 438976819}
   m_Layer: 0
   m_Name: Enemy Character
   m_TagString: Player
@@ -965,16 +966,15 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 438976820}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
     - Name: State
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
 --- !u!114 &438976817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,6 +1088,36 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+--- !u!114 &438976822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438976807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fdc3a4930f44e28aa18911bb5d4379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: Distance
+      Entry: 4
+      Data: 4.83
+    - Name: _rayCount
+      Entry: 3
+      Data: 13
+    - Name: _fov
+      Entry: 4
+      Data: 80
 --- !u!1 &556824467
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using cmp2804.Characters.Detection;
 using cmp2804.Characters.States;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(Patrol))]
+    [RequireComponent(typeof(Patrol), typeof(Chase), typeof(Sight))]
     [HideMonoScript]
     public class EnemyController : SerializedMonoBehaviour
     {

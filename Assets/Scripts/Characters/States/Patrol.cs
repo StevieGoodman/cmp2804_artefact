@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using cmp2804.Characters.Detection;
 using cmp2804.Characters.Movement;
 using cmp2804.Math;
 using Sirenix.OdinInspector;
@@ -10,12 +11,16 @@ using UnityEngine.AI;
 
 namespace cmp2804.Characters.States
 {
+    [RequireComponent(typeof(EnemyController), typeof(Chase), typeof(Sight))]
     [HideMonoScript]
     public class Patrol : EnemyState
     {
         // Components
         private NavMeshAgent _agent;
-        
+        private EnemyController _enemyController;
+        private Chase _chase;
+        private Sight _sight;
+
         // Properties
         [Title("Patrol Nodes", "The nodes the enemy will patrol between.")]
         [OdinSerialize, HideLabel] public Queue<Transform> PatrolNodes { get; private set; }
@@ -25,12 +30,16 @@ namespace cmp2804.Characters.States
         private void Awake()
         {
             _agent = gameObject.GetComponent<NavMeshAgent>();
+            _enemyController = gameObject.GetComponent<EnemyController>();
+            _chase = gameObject.GetComponent<Chase>();
+            _sight = gameObject.GetComponent<Sight>();
             SetNextMovementTarget();
         }
 
         public override void UpdateState()
         {
-            // TODO: Implement this method.
+            if (_sight.PlayerInSight())
+                _enemyController.State = _chase;
         }
 
         public override async Task TickState()
