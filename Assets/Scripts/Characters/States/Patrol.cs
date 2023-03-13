@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using cmp2804.Characters.Detection;
-using cmp2804.Characters.Movement;
-using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
