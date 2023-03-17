@@ -8,13 +8,18 @@ namespace cmp2804.Characters
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [HideMonoScript]
-    class NavmeshMovement : SerializedMonoBehaviour, IMovement
+    class NavmeshMovement : SerializedMonoBehaviour
     {
         // Components
         private NavMeshAgent _agent;
         
         // Properties
-        [OdinSerialize] public bool CanMove { get; set; } = true;
+        [OdinSerialize] public bool CanMove
+        {
+            get => _agent.enabled;
+            set => _agent.enabled = value;
+        }
+
         public Target MoveTarget
         {
             get => new(_agent.destination);
