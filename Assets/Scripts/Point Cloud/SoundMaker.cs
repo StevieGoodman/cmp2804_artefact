@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace cmp2804.Point_Cloud
 {
-    public class SoundMaker : MonoBehaviour
+    public class SoundMaker : SerializedMonoBehaviour
     {
         [OdinSerialize] [Range(0, 360)] private float _angle;
 

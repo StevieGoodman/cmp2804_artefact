@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace cmp2804.Point_Cloud
 {
-    public class PointCloudRenderer : MonoBehaviour
+    public class PointCloudRenderer : SerializedMonoBehaviour
     {
         private const float PointScale = 0.05f;
 
@@ -106,7 +107,7 @@ namespace cmp2804.Point_Cloud
         public void CreatePoint(Vector3 position, Vector3 direction, Color colour, float lifespanScale)
         {
             _points.Add(position);
-            _normals.Add(direction);
+            _normals.Add(direction + Vector3.right * 0.01f);
             _colours.Add(colour);
             _lifespanScales.Add(lifespanScale);
             _lifespans.Add(1);

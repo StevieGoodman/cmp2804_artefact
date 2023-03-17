@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace cmp2804.Point_Cloud
 {
-    public class SoundManager : MonoBehaviour
+    public class SoundManager : SerializedMonoBehaviour
     {
         private static readonly Dictionary<Transform, Color> ObjectColours = new();
 
@@ -40,10 +41,7 @@ namespace cmp2804.Point_Cloud
                     if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
                     {
                         continue;
-                        ;
                     }
-
-
                     if (_highlightEnabled && HighlightObjectColours.TryGetValue(hit.transform, out var colour))
                         PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, colour,
                             ray.Lifespan * (1 - hit.distance / ray.Length));
