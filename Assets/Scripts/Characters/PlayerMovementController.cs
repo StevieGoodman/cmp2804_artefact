@@ -7,20 +7,22 @@ namespace cmp2804.Characters
     [HideMonoScript]
     public class PlayerMovementController : SerializedMonoBehaviour, IMovementController
     {
-        [Title("Component Fields", "The components required for the character controller.")]
-        [SerializeField, Required]
+        [Title("Component Fields", "The components required for the character controller.")] [SerializeField] [Required]
         private Rigidbody rigidBody;
-        
+
         [Space]
-        
         [Title("Movement State", "The behaviour defining the player's movement.")]
-        [SerializeField, Required, HideLabel, InlineEditor]
+        [SerializeField]
+        [Required]
+        [HideLabel]
+        [InlineEditor]
         private MovementState movementState;
-        
+
         [Space]
-        
         [Title("Move Direction", "The direction the character is moving towards.")]
-        [SerializeField, HideLabel, ReadOnly]
+        [SerializeField]
+        [HideLabel]
+        [ReadOnly]
         private Vector3 moveDirection = Vector3.zero;
 
         private void Update()
@@ -31,8 +33,8 @@ namespace cmp2804.Characters
 
         public void IncrementMovement()
         {
-            var newPosition = rigidBody.position + 
-                              moveDirection * 
+            var newPosition = rigidBody.position +
+                              moveDirection *
                               (Time.deltaTime * movementState.moveSpeed);
             rigidBody.MovePosition(newPosition);
         }
@@ -43,12 +45,12 @@ namespace cmp2804.Characters
             var targetRotation = Quaternion.LookRotation(moveDirection);
             rigidBody.MoveRotation(
                 Quaternion.RotateTowards(
-                    rigidBody.rotation, 
+                    rigidBody.rotation,
                     targetRotation,
                     360 * Time.deltaTime / movementState.rotationSpeed)
-                );
+            );
         }
-        
+
         public void SetMoveDirection(Vector3 direction)
         {
             moveDirection = direction;

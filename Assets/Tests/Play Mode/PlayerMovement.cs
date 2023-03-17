@@ -6,7 +6,6 @@ namespace Tests.Play_Mode
         public void PlayerMovementSimplePasses()
         {
             // Use the Assert class to test conditions.
-            
         }
 
         // A UnityTest behaves like a coroutine in PlayMode
