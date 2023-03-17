@@ -1,52 +1,59 @@
+using System.Collections.Generic;
+using cmp2804.Characters.Movement;
+using cmp2804.Math;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(PlayerMovementController))]
+    [RequireComponent(typeof(PositionMovement), typeof(RotationMovement))]
     [HideMonoScript]
     public class PlayerInputHandler : SerializedMonoBehaviour
     {
-        [Title("Component Fields", "The components required for the character controller.")] [SerializeField] [Required]
-        private PlayerMovementController movementController;
+        private PositionMovement _positionMovement;
+        private RotationMovement _rotationMovement;
 
-        [Title("Movement States", "The possible states the player can move in.")] [SerializeField] [Required]
-        private MovementState crawlState;
+        [Title("Movement States", "The possible states the player can move in.")]
+        [OdinSerialize] private Dictionary<string, MovementState> _movementStates;
 
-        [SerializeField] [Required] private MovementState crouchState;
-
-        [SerializeField] [Required] private MovementState walkState;
-
-        [SerializeField] [Required] private MovementState jogState;
+        private void Awake()
+        {
+            _positionMovement = GetComponent<PositionMovement>();
+            _rotationMovement = GetComponent<RotationMovement>();
+        }
 
         public void SetMoveDirection(InputAction.CallbackContext context)
         {
             var direction = (Vector3)context.ReadValue<Vector2>();
-            movementController.SetMoveDirection(new Vector3(direction.x, 0, direction.y));
+            var vector3 = new Vector3(direction.x, 0, direction.y);
+            var target = new Target(vector3);
+            _positionMovement.Target = target;
+            _rotationMovement.Target = target;
         }
 
         public void Crawl(InputAction.CallbackContext context)
         {
-            SetMovementState(context, crawlState);
+            SetMovementState(context, "Crawl");
         }
-
+        
         public void Crouch(InputAction.CallbackContext context)
         {
-            SetMovementState(context, crouchState);
+            SetMovementState(context, "Crouch");
         }
 
         public void Jog(InputAction.CallbackContext context)
         {
-            SetMovementState(context, jogState);
+            SetMovementState(context, "Jog");
         }
 
-        private void SetMovementState(InputAction.CallbackContext context, MovementState movementState)
+        private void SetMovementState(InputAction.CallbackContext context, string newStateName)
         {
-            if (context.performed)
-                movementController.SetMovementState(movementState);
-            else if (context.canceled)
-                movementController.SetMovementState(walkState);
+            if (context.canceled)
+                newStateName = "Walk"; 
+            _movementStates.TryGetValue(newStateName, out var newState);
+            _positionMovement.MovementState = newState;
         }
     }
 }
