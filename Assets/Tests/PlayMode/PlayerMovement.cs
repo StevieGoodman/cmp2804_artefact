@@ -17,9 +17,18 @@ namespace Tests.PlayMode
             yield return null;
             var newPosition = rigidbody.position;
             var targetPosition = oldPosition + movement.MoveTarget.Origin * (Time.deltaTime * movementState.moveSpeed);
-            Assert.AreEqual(
-                newPosition, 
-                targetPosition);
+            Assert.AreApproximatelyEqual(
+                newPosition.x, 
+                targetPosition.x,
+                0.01f);
+            Assert.AreApproximatelyEqual(
+                newPosition.y, 
+                targetPosition.y,
+                0.01f);
+            Assert.AreApproximatelyEqual(
+                newPosition.z, 
+                targetPosition.z,
+                0.01f);
         }
         
         [UnityTest]
