@@ -54,9 +54,21 @@ namespace cmp2804.Point_Cloud
 
         private void Update()
         {
-            if (Keyboard.current.kKey.wasPressedThisFrame) SoundManager.MakeSound(transform.position, 1000, 100, 10);
+            if (Keyboard.current.kKey.wasPressedThisFrame) SoundManager.MakeSound(transform.position, 1000, 100, 10, ~0);
 
             if (_pointBuffer == null || _normalBuffer == null || _lifespanBuffer == null) return;
+
+            var recreateBuffer = false;
+            for (var i = 0; i < _lifespans.Count; i++)
+            {
+                if (_lifespans[i] <= 0)
+                {
+                    recreateBuffer = true;
+                    RemovePoint(i);
+                }
+            }
+
+            if (recreateBuffer) RecreateBuffers();
 
             _computeShader.SetFloat("deltaTime", Time.deltaTime);
             _computeShader.SetBuffer(0, "lifespans", _lifespanBuffer);
@@ -66,15 +78,6 @@ namespace cmp2804.Point_Cloud
 
             _lifespanBuffer.GetData(newLifespanData);
             _lifespans = newLifespanData.ToList();
-            var recreateBuffer = false;
-            for (var i = 0; i < _lifespans.Count; i++)
-                if (_lifespans[i] <= 0)
-                {
-                    recreateBuffer = true;
-                    RemovePoint(i);
-                }
-
-            if (recreateBuffer) RecreateBuffers();
 
             UpdateShader();
             Graphics.DrawMeshInstancedProcedural(_pointMesh, 0, _pointMaterial, _bounds, _pointBuffer.count);
@@ -96,13 +99,7 @@ namespace cmp2804.Point_Cloud
             _pointMaterial.SetBuffer(Lifespans, _lifespanBuffer);
             _pointMaterial.SetBuffer(Colours, _colourBuffer);
             _pointMaterial.SetFloat(StepId, PointScale);
-            _pointMaterial.SetFloat(Scale, transform.localScale.x);
-            _pointMaterial.SetFloat(Intensity, 1);
-            _pointMaterial.SetVector(WorldPos, transform.position);
-            _pointMaterial.SetMatrix(Quaternion1,
-                Matrix4x4.TRS(new Vector3(0, 0, 0), transform.rotation, new Vector3(1, 1, 1)));
         }
-
 
         public void CreatePoint(Vector3 position, Vector3 direction, Color colour, float lifespanScale)
         {
