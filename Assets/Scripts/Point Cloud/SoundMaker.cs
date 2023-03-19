@@ -7,20 +7,22 @@ namespace cmp2804.Point_Cloud
 {
     public class SoundMaker : SerializedMonoBehaviour
     {
+
+        [Title("Emit zone")] 
+        
         [OdinSerialize] [Range(0, 360)] private float _angle;
-
-        [Title("Emit zone")] [OdinSerialize] private Vector3 _direction;
-
-        [OdinSerialize] private float _emissionFrequency;
-
+        [OdinSerialize] private Vector3 _direction;
+        [OdinSerialize] [MinValue(0)] private float _emissionFrequency;
         [OdinSerialize] private bool _emitOnStartup;
         [OdinSerialize] private bool _inverted;
-        [OdinSerialize] private int _numberOfRays;
-        [OdinSerialize] private float _pointLifespan;
-        [OdinSerialize] private float _raycastDistance;
+        [OdinSerialize] [MinValue(0)] private int _numberOfRays;
+        [OdinSerialize] [MinValue(0)] private float _raycastDistance;
 
-        [Title("Emission settings")] [OdinSerialize]
-        private bool _useTransformRotation;
+        [Title("Emission settings")] 
+        [OdinSerialize] private bool _useTransformRotation;
+        [OdinSerialize] private float _pointLifespan;
+        [OdinSerialize] private LayerMask _layerMask;
+
 
         private void Start()
         {
@@ -72,8 +74,8 @@ namespace cmp2804.Point_Cloud
             {
                 SoundManager.MakeSound(transform.position, _useTransformRotation ? transform.forward : _direction,
                     _angle,
-                    _numberOfRays, _raycastDistance,
-                    _pointLifespan, _inverted);
+                    _numberOfRays, _layerMask,
+                    _raycastDistance, _pointLifespan, _inverted);
                 yield return new WaitForSeconds(_emissionFrequency);
             }
         }
