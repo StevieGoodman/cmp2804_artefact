@@ -29,6 +29,8 @@ namespace cmp2804.Point_Cloud
         private readonly List<float> _lifespanScales = new();
         private readonly List<Vector3> _normals = new();
         private readonly List<Vector3> _points = new();
+        private readonly List<Vector3> _localPoints = new();
+        private readonly List<Transform> _parents = new();
         private ComputeBuffer _colourBuffer;
         private ComputeBuffer _lifespanBuffer;
         private List<float> _lifespans = new();
@@ -66,6 +68,10 @@ namespace cmp2804.Point_Cloud
                     recreateBuffer = true;
                     RemovePoint(i);
                 }
+                else
+                {
+                    _points[i] = _parents[i].TransformPoint(_localPoints[i]);
+                }
             }
 
             if (recreateBuffer) RecreateBuffers();
@@ -86,6 +92,8 @@ namespace cmp2804.Point_Cloud
         private void RemovePoint(int i)
         {
             _points.RemoveAt(i);
+            _localPoints.RemoveAt(i);
+            _parents.RemoveAt(i);
             _normals.RemoveAt(i);
             _colours.RemoveAt(i);
             _lifespanScales.RemoveAt(i);
@@ -101,9 +109,11 @@ namespace cmp2804.Point_Cloud
             _pointMaterial.SetFloat(StepId, PointScale);
         }
 
-        public void CreatePoint(Vector3 position, Vector3 direction, Color colour, float lifespanScale)
+        public void CreatePoint(Vector3 localPosition, Transform transform, Vector3 direction, Color colour, float lifespanScale)
         {
-            _points.Add(position);
+            _localPoints.Add(localPosition);
+            _points.Add(Vector3.zero);
+            _parents.Add(transform);
             _normals.Add(direction + Vector3.right * 0.01f);
             _colours.Add(colour);
             _lifespanScales.Add(lifespanScale);
@@ -141,6 +151,14 @@ namespace cmp2804.Point_Cloud
 
             _lifespanBuffer = new ComputeBuffer(count, sizeof(float));
             _lifespanBuffer.SetData(_lifespans);
+        }
+        private void OnApplicationQuit()
+        {
+            _colourBuffer.Release();
+            _lifespanBuffer.Release();
+            _lifespanScaleBuffer.Release();
+            _pointBuffer.Release();
+            _normalBuffer.Release();
         }
     }
 }
