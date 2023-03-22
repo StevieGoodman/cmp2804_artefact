@@ -36,17 +36,20 @@ namespace cmp2804.Point_Cloud
                 var ray = RaysTocast.Dequeue();
                 if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length, ray.LayerMask))
                 {
-                    if (!Physics.Raycast(hit.point, _playerHead.position - hit.point, out var playerCheck)) continue;
-
-                    if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
+                    if (!hit.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
                     {
-                        continue;
+                        if (!Physics.Raycast(hit.point, _playerHead.position - hit.point, out var playerCheck)) continue;
+
+                        if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
+                        {
+                            continue;
+                        }
                     }
                     if (_highlightEnabled && HighlightObjectColours.TryGetValue(hit.transform, out var colour))
-                        PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, colour,
+                        PointCloudRenderer.Instance.CreatePoint(hit.transform.InverseTransformPoint(hit.point), hit.transform, hit.normal, colour,
                             ray.Lifespan * (1 - hit.distance / ray.Length));
                     else if (ObjectColours.TryGetValue(hit.transform, out colour))
-                        PointCloudRenderer.Instance.CreatePoint(hit.point, hit.normal, colour,
+                        PointCloudRenderer.Instance.CreatePoint(hit.transform.InverseTransformPoint(hit.point), hit.transform, hit.normal, colour,
                             ray.Lifespan * (1 - hit.distance / ray.Length));
                 }
 
