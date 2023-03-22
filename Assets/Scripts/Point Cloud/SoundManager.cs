@@ -34,7 +34,7 @@ namespace cmp2804.Point_Cloud
             var target = Mathf.Max(40, Mathf.RoundToInt(RaysToCast.Count / 2f));
             while (raysCast < target && RaysToCast.Count > 0)
             {
-                var ray = RaysTocast.Dequeue();
+                var ray = RaysToCast.Dequeue();
                 if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length, ray.LayerMask))
                 {
                     if (!Physics.Raycast(hit.point, _playerHead.position - hit.point, out var playerCheck)) continue;
