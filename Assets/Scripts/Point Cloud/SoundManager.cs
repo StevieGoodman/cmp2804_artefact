@@ -34,8 +34,8 @@ namespace cmp2804.Point_Cloud
             var target = Mathf.Max(40, Mathf.RoundToInt(RaysToCast.Count / 2f));
             while (raysCast < target && RaysToCast.Count > 0)
             {
-                var ray = RaysToCast.Dequeue();
-                if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length))
+                var ray = RaysTocast.Dequeue();
+                if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length, ray.LayerMask))
                 {
                     if (!Physics.Raycast(hit.point, _playerHead.position - hit.point, out var playerCheck)) continue;
 
@@ -105,7 +105,7 @@ namespace cmp2804.Point_Cloud
         /// <param name="inverted">If the rays should be cast from the surface of the sphere towards to origin.</param>
         /// <returns>The a copy of the produced queue for testing.</returns>
         public static Queue<MakerRay> MakeSound(Vector3 origin, int numberOfRays, float rayLength, float lifespan,
-            bool inverted = false)
+            LayerMask layerMask, bool inverted = false)
         {
             var testQueue = new Queue<MakerRay>();
             for (var i = 0; i < numberOfRays; i++)
@@ -115,16 +115,16 @@ namespace cmp2804.Point_Cloud
                 {              
                     var newOrigin = origin + randDirection * rayLength;
                     RaysToCast.Enqueue(
-                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan));
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                     testQueue.Enqueue(
-                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan));
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                 }
                 else
                 {
                     RaysToCast.Enqueue(
-                        new MakerRay(origin, randDirection, rayLength, lifespan));
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                     testQueue.Enqueue(
-                       new MakerRay(origin, randDirection, rayLength, lifespan));
+                       new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                 }
             }
             return testQueue;
@@ -148,7 +148,7 @@ namespace cmp2804.Point_Cloud
         /// <param name="inverted">If the rays should be cast from the surface of the sphere towards to origin.</param>
         /// <returns>The a copy of the produced queue for testing.</returns>
         public static Queue<MakerRay> MakeSound(Vector3 origin, Vector3 direction, float angle, int numberOfRays,
-            float rayLength, float lifespan, bool inverted = false)
+           LayerMask layerMask, float rayLength, float lifespan, bool inverted = false)
         {
             var testQueue = new Queue<MakerRay>();
             for (var i = 0; i < numberOfRays; i++)
@@ -158,16 +158,16 @@ namespace cmp2804.Point_Cloud
                 {                
                     var newOrigin = origin + randDirection * rayLength;
                     RaysToCast.Enqueue(
-                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan));
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                     testQueue.Enqueue(
-                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan));
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                 }
                 else
                 {
                     RaysToCast.Enqueue(
-                        new MakerRay(origin, randDirection, rayLength, lifespan));
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                     testQueue.Enqueue(
-                        new MakerRay(origin, randDirection, rayLength, lifespan));
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                 }
             }
             return testQueue;
@@ -189,13 +189,15 @@ namespace cmp2804.Point_Cloud
             public readonly Vector3 Direction;
             public readonly float Length;
             public readonly float Lifespan;
+            public readonly LayerMask LayerMask;
 
-            public MakerRay(Vector3 origin, Vector3 direction, float length, float lifespan)
+            public MakerRay(Vector3 origin, Vector3 direction, float length, float lifespan, LayerMask layerMask)
             {
                 this.Origin = origin;
                 this.Direction = direction;
                 this.Length = length;
                 this.Lifespan = lifespan;
+                this.LayerMask = layerMask;
             }
         }
     }
