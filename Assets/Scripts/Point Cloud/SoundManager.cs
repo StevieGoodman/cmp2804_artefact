@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ namespace cmp2804.Point_Cloud
 
         private static readonly Dictionary<Transform, Color> HighlightObjectColours = new();
 
-        private static readonly Queue<MakerRay> RaysTocast = new();
+        private static readonly Queue<MakerRay> RaysToCast = new();
         private static bool _highlightEnabled = true;
 
         [OdinSerialize] private Transform _playerHead;
@@ -30,10 +31,10 @@ namespace cmp2804.Point_Cloud
         private void Update()
         {
             var raysCast = 0;
-            var target = Mathf.Max(40, Mathf.RoundToInt(RaysTocast.Count / 2f));
-            while (raysCast < target && RaysTocast.Count > 0)
+            var target = Mathf.Max(40, Mathf.RoundToInt(RaysToCast.Count / 2f));
+            while (raysCast < target && RaysToCast.Count > 0)
             {
-                var ray = RaysTocast.Dequeue();
+                var ray = RaysToCast.Dequeue();
                 if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length, ray.LayerMask))
                 {
                     if (!hit.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
@@ -75,6 +76,11 @@ namespace cmp2804.Point_Cloud
 
         public static void OnSceneChange(Scene arg0, Scene scene)
         {
+            CacheAllColours();
+        }
+
+        public static (Dictionary<Transform, Color>, Dictionary<Transform, Color>) CacheAllColours()
+        {
             foreach (var renderer in FindObjectsOfType<Renderer>())
             {
                 if (renderer.transform.TryGetComponent(out ObjectHighlighter highlight))
@@ -83,6 +89,7 @@ namespace cmp2804.Point_Cloud
                 ObjectColours.Add(renderer.transform, renderer.material.color);
                 renderer.enabled = false;
             }
+            return (HighlightObjectColours, ObjectColours);
         }
 
         /// <summary>
@@ -99,22 +106,31 @@ namespace cmp2804.Point_Cloud
         ///     travels.
         /// </param>
         /// <param name="inverted">If the rays should be cast from the surface of the sphere towards to origin.</param>
-        public static void MakeSound(Vector3 origin, int numberOfRays, float rayLength, float lifespan,
+        /// <returns>The a copy of the produced queue for testing.</returns>
+        public static Queue<MakerRay> MakeSound(Vector3 origin, int numberOfRays, float rayLength, float lifespan,
             LayerMask layerMask, bool inverted = false)
         {
+            var testQueue = new Queue<MakerRay>();
             for (var i = 0; i < numberOfRays; i++)
+            {
+                var randDirection = Random.onUnitSphere;
                 if (inverted)
-                {
-                    var randDirection = Random.onUnitSphere;
+                {              
                     var newOrigin = origin + randDirection * rayLength;
-                    RaysTocast.Enqueue(
+                    RaysToCast.Enqueue(
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
+                    testQueue.Enqueue(
                         new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                 }
                 else
                 {
-                    RaysTocast.Enqueue(
-                        new MakerRay(origin, Vector3.one, rayLength, lifespan, layerMask));
+                    RaysToCast.Enqueue(
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
+                    testQueue.Enqueue(
+                       new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                 }
+            }
+            return testQueue;
         }
 
         /// <summary>
@@ -133,22 +149,31 @@ namespace cmp2804.Point_Cloud
         ///     travels.
         /// </param>
         /// <param name="inverted">If the rays should be cast from the surface of the sphere towards to origin.</param>
-        public static void MakeSound(Vector3 origin, Vector3 direction, float angle, int numberOfRays,
+        /// <returns>The a copy of the produced queue for testing.</returns>
+        public static Queue<MakerRay> MakeSound(Vector3 origin, Vector3 direction, float angle, int numberOfRays,
            LayerMask layerMask, float rayLength, float lifespan, bool inverted = false)
         {
+            var testQueue = new Queue<MakerRay>();
             for (var i = 0; i < numberOfRays; i++)
+            {
+                var randDirection = GetRandomDirection(direction, angle);
                 if (inverted)
-                {
-                    var randDirection = GetRandomDirection(direction, angle);
+                {                
                     var newOrigin = origin + randDirection * rayLength;
-                    RaysTocast.Enqueue(
+                    RaysToCast.Enqueue(
+                        new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
+                    testQueue.Enqueue(
                         new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
                 }
                 else
                 {
-                    RaysTocast.Enqueue(
-                        new MakerRay(origin, GetRandomDirection(direction, angle), rayLength, lifespan, layerMask));
+                    RaysToCast.Enqueue(
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
+                    testQueue.Enqueue(
+                        new MakerRay(origin, randDirection, rayLength, lifespan, layerMask));
                 }
+            }
+            return testQueue;
         }
 
         public static void DisableHighlightColours()
@@ -161,7 +186,7 @@ namespace cmp2804.Point_Cloud
             _highlightEnabled = true;
         }
 
-        private struct MakerRay
+        public struct MakerRay
         {
             public readonly Vector3 Origin;
             public readonly Vector3 Direction;

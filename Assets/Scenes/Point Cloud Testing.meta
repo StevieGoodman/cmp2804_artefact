@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/InitTestScene638147508081669417.unity.meta
+guid: ccaf001ceefff9149b155b9da4e908ce
+========
 guid: a3f2ff27c5b3e478a8b6e111ddeae00f
 folderAsset: yes
+>>>>>>>> submission:Assets/Scenes/Point Cloud Testing.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
