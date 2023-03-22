@@ -20,10 +20,11 @@ namespace Tests.Playmode
             float rayLength = 5f;
             float lifespan = 10f;
             bool inverted = false;
+            LayerMask layerMask = ~0;
 
             // Act
             Random.InitState(0);
-            Queue<MakerRay> actualRays = MakeSound(origin, numberOfRays, rayLength, lifespan, inverted);
+            Queue<MakerRay> actualRays = MakeSound(origin, numberOfRays, rayLength, lifespan, layerMask, inverted);
 
             // Assert
             Assert.AreEqual(numberOfRays, actualRays.Count);
@@ -47,10 +48,11 @@ namespace Tests.Playmode
             float rayLength = 2f;
             float lifespan = 6f;
             bool inverted = true;
+            LayerMask layerMask = ~0;
 
             // Act
             Random.InitState(0);
-            Queue<MakerRay> actualRays = MakeSound(origin, numberOfRays, rayLength, lifespan, inverted);
+            Queue<MakerRay> actualRays = MakeSound(origin, numberOfRays, rayLength, lifespan, layerMask, inverted);
 
             // Assert
             Assert.AreEqual(numberOfRays, actualRays.Count);
@@ -76,10 +78,11 @@ namespace Tests.Playmode
             float rayLength = 5f;
             float lifespan = 10f;
             bool inverted = false;
+            LayerMask layerMask = ~0;
 
             // Act
             Random.InitState(0);
-            Queue<MakerRay> actualRays = MakeSound(origin, direction, angle, numberOfRays, rayLength, lifespan, inverted);
+            Queue<MakerRay> actualRays = MakeSound(origin, direction, angle, numberOfRays, layerMask, rayLength, lifespan, inverted);
 
             // Assert
             Assert.AreEqual(actualRays.Count, numberOfRays);
@@ -107,10 +110,11 @@ namespace Tests.Playmode
             float rayLength = 3f;
             float lifespan = 12f;
             bool inverted = true;
+            LayerMask layerMask = ~0;
 
             // Act
             Random.InitState(0);
-            Queue<MakerRay> actualRays = MakeSound(origin, direction, angle, numberOfRays, rayLength, lifespan, inverted);
+            Queue<MakerRay> actualRays = MakeSound(origin, direction, angle, numberOfRays, layerMask, rayLength, lifespan, inverted);
 
             // Assert
             Assert.AreEqual(actualRays.Count, numberOfRays);
