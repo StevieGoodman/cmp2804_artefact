@@ -17,16 +17,18 @@ namespace cmp2804.Point_Cloud
         [OdinSerialize] private bool _inverted;
         [OdinSerialize] [MinValue(0)] private int _numberOfRays;
         [OdinSerialize] [MinValue(0)] private float _raycastDistance;
-
+        
         [Title("Emission settings")] 
         [OdinSerialize] private bool _useTransformRotation;
         [OdinSerialize] private float _pointLifespan;
         [OdinSerialize] private LayerMask _layerMask;
 
+        public bool Emitting { get; private set; }
+
 
         private void Start()
         {
-            if (_emitOnStartup) StartCoroutine(Emit());
+            if (_emitOnStartup) StartEmission();
         }
 
         private void OnDrawGizmosSelected()
@@ -57,15 +59,22 @@ namespace cmp2804.Point_Cloud
             Gizmos.DrawRay(position, downRayDirection * _raycastDistance);
         }
 
+        [HideIf("Emitting")]
+        [DisableInEditorMode]
+        [Button(ButtonSizes.Large), GUIColor(0.4f, 0.8f, 1)]
         public void StartEmission()
         {
             StopEmission();
             StartCoroutine(Emit());
+            Emitting = true;
         }
-
+        [ShowIf("Emitting")]
+        [DisableInEditorMode]
+        [Button(ButtonSizes.Large), GUIColor(0.4f, 0.8f, 1)]
         public void StopEmission()
         {
             StopAllCoroutines();
+            Emitting = false;
         }
 
         private IEnumerator Emit()
