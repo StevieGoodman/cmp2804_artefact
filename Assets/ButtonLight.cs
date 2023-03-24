@@ -14,7 +14,7 @@ namespace cmp2804
         void Update()
         {
             if (button.tag == "pressed") return;
-            button.GetComponent<Renderer>.material = green;
+            button.GetComponent<Renderer>().material = green;
         }
     }
 }
