@@ -10,21 +10,11 @@ namespace cmp2804
 
         public Material green;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
         // Update is called once per frame
         void Update()
         {
-            if (button.tag == "pressed")
-            {
-                UnityEngine.Debug.Log("BUTTON PRESSED");
-                button.GetComponent<Renderer>().material = green;
-            }
-            
+            if (button.tag == "pressed") return;
+            button.GetComponent<Renderer>().material = green;
         }
     }
 }
