@@ -8,6 +8,7 @@ TagManager:
   - Button
   - pressed
   - Doorv2
+  - Door(natInactive)
   layers:
   - Default
   - TransparentFX
