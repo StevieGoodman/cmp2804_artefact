@@ -41,8 +41,9 @@ namespace cmp2804.DistractionMechanic
             
             Rigidbody throwableRigidbody = throwableObject.GetComponent<Rigidbody>();
             throwableRigidbody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
-
-            DistractionSource distractionSource = new DistractionSource(throwableObject.transform.position, 5f);
+            
+            Throwable throwableScript = throwableObject.AddComponent<Throwable>();
+            throwableScript.DestroyAfterTime(5f);
         }
     }
 }
