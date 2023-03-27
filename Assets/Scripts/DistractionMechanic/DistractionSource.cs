@@ -14,8 +14,8 @@ namespace cmp2804.DistractionMechanic
 
         public DistractionSource(Vector3 origin, float radius)
         {
-            this.Origin = origin;
-            this._radius = radius;
+            Origin = origin;
+            _radius = radius;
             
             EmitDistraction();
         }
