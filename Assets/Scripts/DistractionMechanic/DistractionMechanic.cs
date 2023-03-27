@@ -37,9 +37,7 @@ namespace cmp2804.DistractionMechanic
             Collider throwableCollider = throwableObject.GetComponent<Collider>();
 
             if (playerCollider != null && throwableCollider != null)
-            {
                 Physics.IgnoreCollision(playerCollider, throwableCollider);
-            }
             
             Rigidbody throwableRigidbody = throwableObject.GetComponent<Rigidbody>();
             throwableRigidbody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
