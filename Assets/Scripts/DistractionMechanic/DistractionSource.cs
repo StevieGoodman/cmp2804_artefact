@@ -28,9 +28,7 @@ namespace cmp2804.DistractionMechanic
             {
                 IDistractable distractable = collider.GetComponent<IDistractable>();
                 if (distractable != null)
-                {
                     distractable.Distract(this);
-                }
             }
         }
     }
