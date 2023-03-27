@@ -1,5 +1,6 @@
 using System.Collections;
 using cmp2804.Characters;
+using cmp2804.Math;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
@@ -11,21 +12,30 @@ namespace Tests.PlayMode
         [UnityTest]
         public IEnumerator IncrementMovement()
         {
-            SetupPlayerCharacter(out var movement, out var movementState, out var rigidBody);
-            var oldPosition = rigidBody.position;
+            SetupPlayerCharacter(out var movement, out var movementState, out var rigidbody);
+            var oldPosition = rigidbody.position;
             yield return null;
-            var newPosition = rigidBody.position;
-            var targetPosition = oldPosition + movement.MoveDirection * (Time.deltaTime * movementState.moveSpeed);
-            Assert.AreEqual(
-                newPosition, 
-                targetPosition);
+            var newPosition = rigidbody.position;
+            var targetPosition = oldPosition + movement.MoveTarget.Origin * (Time.deltaTime * movementState.moveSpeed);
+            Assert.AreApproximatelyEqual(
+                newPosition.x, 
+                targetPosition.x,
+                0.01f);
+            Assert.AreApproximatelyEqual(
+                newPosition.y, 
+                targetPosition.y,
+                0.01f);
+            Assert.AreApproximatelyEqual(
+                newPosition.z, 
+                targetPosition.z,
+                0.01f);
         }
         
         [UnityTest]
         public IEnumerator IncrementRotation()
         {
             SetupPlayerCharacter(out var movement, out var movementState, out var rigidBody);
-            movement.SetMoveDirection(Vector3.left);
+            movement.MoveTarget = new Target(Vector3.left);
             var oldRotation = rigidBody.rotation;
             yield return null;
             var newRotation = rigidBody.rotation;
@@ -38,16 +48,16 @@ namespace Tests.PlayMode
         }
         
         private static void SetupPlayerCharacter(
-            out cmp2804.Characters.PlayerMovement movement, out MovementState movementState, out Rigidbody rigidBody)
+            out BasicMovement basicMovement, out MovementState movementState, out Rigidbody rigidbody)
         {
             var player = new GameObject("Player");
-            movement = player.AddComponent<cmp2804.Characters.PlayerMovement>();
-            movementState = ScriptableObject.CreateInstance<cmp2804.Characters.MovementState>();
-            rigidBody = player.GetComponent<Rigidbody>();
+            basicMovement = player.AddComponent<BasicMovement>();
+            movementState = ScriptableObject.CreateInstance<MovementState>();
+            rigidbody = player.GetComponent<Rigidbody>();
             movementState.moveSpeed = 100f;
             movementState.rotationSpeed = 2f;
-            movement.MovementState = movementState;
-            movement.SetMoveDirection(Vector3.forward);
+            basicMovement.MovementState = movementState;
+            basicMovement.MoveTarget = new Target(Vector3.forward);
         }
     }
 }
