@@ -5,11 +5,7 @@ using UnityEngine;
 
 namespace cmp2804
 {
-    public class Throwable : MonoBehaviour, IDistractable
+    public class Throwable : MonoBehaviour
     {
-        public void Distract(DistractionSource source)
-        {
-            Debug.Log($"New distraction at {source.Origin}");
-        }
     }
 }
