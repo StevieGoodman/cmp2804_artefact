@@ -14,6 +14,8 @@ namespace cmp2804
         {
             if (coll.gameObject.tag == "Player")
                 Button.tag = "pressed";
-        }
+
+
+        }   
     }
 }

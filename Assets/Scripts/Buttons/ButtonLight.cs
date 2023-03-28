@@ -7,14 +7,26 @@ namespace cmp2804
     public class ButtonLight : MonoBehaviour
     {
         public GameObject button;
+        public GameObject lightRed;
+        public GameObject lightGreen;
 
-        public Material green;
+        void Start()
+        {
+            lightGreen.SetActive(false);
+        }
+           
+
+         
 
         // Update is called once per frame
         void Update()
         {
-            if (button.tag == "pressed") return;
-            button.GetComponent<Renderer>().material = green;
+            if (button.tag == "pressed")
+            {
+                lightRed.SetActive(false);
+                lightGreen.SetActive(true);
+            }
+            
         }
     }
 }
