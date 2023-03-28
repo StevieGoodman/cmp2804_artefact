@@ -1,30 +1,34 @@
+using System;
 using System.Collections;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace cmp2804.Point_Cloud
 {
     public class SoundMaker : SerializedMonoBehaviour
     {
 
-        [Title("Emit zone")] 
-        
-        [OdinSerialize] [Range(0, 360)] private float _angle;
+        [Title("Emit zone")]
+
+        [OdinSerialize][Range(0, 360)] private float _angle;
+        [OdinSerialize] private Vector3 _offset;
         [OdinSerialize] private Vector3 _direction;
-        [OdinSerialize] [MinValue(0)] private float _emissionFrequency;
+        [OdinSerialize][MinValue(0)] private float _emissionFrequency;
         [OdinSerialize] private bool _emitOnStartup;
         [OdinSerialize] private bool _inverted;
-        [OdinSerialize] [MinValue(0)] private int _numberOfRays;
-        [OdinSerialize] [MinValue(0)] private float _raycastDistance;
-        
-        [Title("Emission settings")] 
+        [OdinSerialize][MinValue(0)] private int _numberOfRays;
+        [OdinSerialize][MinValue(0)] private float _raycastDistance;
+
+        [Title("Emission settings")]
         [OdinSerialize] private bool _useTransformRotation;
         [OdinSerialize] private float _pointLifespan;
         [OdinSerialize] private LayerMask _layerMask;
 
         public bool Emitting { get; private set; }
 
+        
 
         private void Start()
         {
@@ -38,7 +42,8 @@ namespace cmp2804.Point_Cloud
             else
                 _direction.Normalize();
 
-            Gizmos.DrawWireSphere(transform.position, _raycastDistance);
+            var position = transform.position + _offset;
+            Gizmos.DrawWireSphere(position, _raycastDistance);
 
             var right = Vector3.Cross(_direction.normalized, Vector3.up + new Vector3(0.05f, 0.0f, 0.05f));
             var up = Vector3.Cross(_direction.normalized, right + new Vector3(0.05f, 0.0f, 0.05f));
@@ -52,7 +57,6 @@ namespace cmp2804.Point_Cloud
             var downRayDirection = downRayRotation * _direction;
             if (_angle > 180) Gizmos.color = Color.red;
 
-            var position = transform.position;
             Gizmos.DrawRay(position, leftRayDirection * _raycastDistance);
             Gizmos.DrawRay(position, rightRayDirection * _raycastDistance);
             Gizmos.DrawRay(position, upRayDirection * _raycastDistance);
@@ -77,14 +81,26 @@ namespace cmp2804.Point_Cloud
             Emitting = false;
         }
 
+        public void MakeSound()
+        {
+            SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
+                                   _angle,
+                                   _numberOfRays, _layerMask,
+                                   _raycastDistance, _pointLifespan, _inverted);
+        }
+        public void MakeSound(float multiplier)
+        {
+            SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
+                                   _angle,
+                                   Mathf.RoundToInt(_numberOfRays * multiplier), _layerMask,
+                                   _raycastDistance * multiplier, _pointLifespan, _inverted);
+        }
+
         private IEnumerator Emit()
         {
             while (true)
             {
-                SoundManager.MakeSound(transform.position, _useTransformRotation ? transform.forward : _direction,
-                    _angle,
-                    _numberOfRays, _layerMask,
-                    _raycastDistance, _pointLifespan, _inverted);
+                MakeSound();
                 yield return new WaitForSeconds(_emissionFrequency);
             }
         }
