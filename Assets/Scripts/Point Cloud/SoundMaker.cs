@@ -34,6 +34,7 @@ namespace cmp2804.Point_Cloud
         [ShowIfGroup("_useSoundRing")]
         [TitleGroup("_useSoundRing/Sound Ring Settings")]
         [OdinSerialize] private Material _soundRingMat;
+        [OdinSerialize] private Color _soundRingColour = Color.red;
 
 
 
@@ -114,6 +115,7 @@ namespace cmp2804.Point_Cloud
                 GameObject primitive = GameObject.CreatePrimitive(PrimitiveType.Quad);
                 Destroy(primitive.GetComponent<Collider>());
                 SoundRing nextSoundRing = new SoundRing(primitive.transform, new Material(_soundRingMat));
+                nextSoundRing.Material.color = _soundRingColour;
                 primitive.GetComponent<MeshRenderer>().material = nextSoundRing.Material;
                 primitive.SetActive(false);
                 nextSoundRing.Transform.SetParent(transform);
