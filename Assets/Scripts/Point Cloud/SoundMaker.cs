@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
@@ -25,13 +26,31 @@ namespace cmp2804.Point_Cloud
         [OdinSerialize] private bool _useTransformRotation;
         [OdinSerialize] private float _pointLifespan;
         [OdinSerialize] private LayerMask _layerMask;
+        [OdinSerialize] private bool _useSoundRing = false;
+
+        [ShowIfGroup("_useSoundRing")]
+        [TitleGroup("_useSoundRing/Sound Ring Settings")]
+        [OdinSerialize] private Material _soundRingMat;
+        
+        private Transform _soundRing;
 
         public bool Emitting { get; private set; }
 
-        
+
 
         private void Start()
         {
+            if(_useSoundRing)
+            {
+                GameObject primitive = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                Destroy(primitive.GetComponent<Collider>());
+                primitive.GetComponent<MeshRenderer>().material = new Material(_soundRingMat);
+                primitive.SetActive(false);
+                _soundRing = primitive.transform;
+                _soundRing.SetParent(transform);
+                _soundRing.localPosition = Vector3.zero;
+                _soundRing.rotation = Quaternion.Euler(90, 0, 0);
+            }
             if (_emitOnStartup) StartEmission();
         }
 
@@ -80,20 +99,41 @@ namespace cmp2804.Point_Cloud
             StopAllCoroutines();
             Emitting = false;
         }
-
+        /// <summary>
+        /// Emits one pulse from the sound maker.
+        /// </summary>
         public void MakeSound()
         {
             SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
                                    _angle,
                                    _numberOfRays, _layerMask,
                                    _raycastDistance, _pointLifespan, _inverted);
+            if (!_useSoundRing) { return; }
+            _soundRing.gameObject.SetActive(true);
+            _soundRing.localScale = Vector3.zero;
+            _soundRingMat.DOFade(1, 0);
+            _soundRing.DOScale(_raycastDistance, 0.5f).OnComplete(() => _soundRing.gameObject.SetActive(false));
+            _soundRingMat.DOFade(0, 0.5f);
         }
+        /// <summary>
+        /// Emits one pulse from the sound maker. The pulse will be louder the closer the multiplier is to 1.
+        /// </summary>
+        /// <param name="multiplier">A value ranging from 0-1.</param>
         public void MakeSound(float multiplier)
         {
+            //https://cdn.discordapp.com/attachments/1059612797073362996/1091481867938693262/image.png
+            multiplier = Mathf.Clamp01(multiplier);
+            float adjustedMultiplier = Mathf.Pow(Mathf.Log(multiplier + 1) / Mathf.Log(2), 0.4f); 
             SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
-                                   _angle,
+                                   _angle * adjustedMultiplier,
                                    Mathf.RoundToInt(_numberOfRays * multiplier), _layerMask,
                                    _raycastDistance * multiplier, _pointLifespan, _inverted);
+            if (!_useSoundRing) { return; }
+            _soundRing.gameObject.SetActive(true);
+            _soundRing.localScale = Vector3.zero;
+            _soundRingMat.DOFade(1, 0);
+            _soundRing.DOScale(adjustedMultiplier * (adjustedMultiplier * 15), 0.5f).OnComplete(() => _soundRing.gameObject.SetActive(false));
+            _soundRingMat.DOFade(0, 0.5f);
         }
 
         private IEnumerator Emit()
