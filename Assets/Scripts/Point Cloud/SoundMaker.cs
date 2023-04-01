@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Linq;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -31,26 +34,30 @@ namespace cmp2804.Point_Cloud
         [ShowIfGroup("_useSoundRing")]
         [TitleGroup("_useSoundRing/Sound Ring Settings")]
         [OdinSerialize] private Material _soundRingMat;
-        
-        private Transform _soundRing;
+
+
+
 
         public bool Emitting { get; private set; }
 
+        private List<SoundRing> _soundRings = new List<SoundRing>();
 
+        private class SoundRing
+        {
+            public Transform Transform;
+            public Material Material;
+            public bool InUse;
+
+            public SoundRing(Transform transform, Material material)
+            {
+                Transform = transform;
+                Material = material;
+                InUse = false;
+            }
+        }
 
         private void Start()
         {
-            if(_useSoundRing)
-            {
-                GameObject primitive = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                Destroy(primitive.GetComponent<Collider>());
-                primitive.GetComponent<MeshRenderer>().material = new Material(_soundRingMat);
-                primitive.SetActive(false);
-                _soundRing = primitive.transform;
-                _soundRing.SetParent(transform);
-                _soundRing.localPosition = Vector3.zero;
-                _soundRing.rotation = Quaternion.Euler(90, 0, 0);
-            }
             if (_emitOnStartup) StartEmission();
         }
 
@@ -99,6 +106,25 @@ namespace cmp2804.Point_Cloud
             StopAllCoroutines();
             Emitting = false;
         }
+
+        private SoundRing GetNextSoundRing()
+        {
+            if(!_soundRings.Any(x => !x.InUse))
+            {
+                GameObject primitive = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                Destroy(primitive.GetComponent<Collider>());
+                SoundRing nextSoundRing = new SoundRing(primitive.transform, new Material(_soundRingMat));
+                primitive.GetComponent<MeshRenderer>().material = nextSoundRing.Material;
+                primitive.SetActive(false);
+                nextSoundRing.Transform.SetParent(transform);
+                nextSoundRing.Transform.localPosition = Vector3.zero;
+                nextSoundRing.Transform.rotation = Quaternion.Euler(90, 0, 0);
+                _soundRings.Add(nextSoundRing);
+                return nextSoundRing;
+            }
+            return _soundRings.First(x => !x.InUse);
+        }
+
         /// <summary>
         /// Emits one pulse from the sound maker.
         /// </summary>
@@ -109,11 +135,13 @@ namespace cmp2804.Point_Cloud
                                    _numberOfRays, _layerMask,
                                    _raycastDistance, _pointLifespan, _inverted);
             if (!_useSoundRing) { return; }
-            _soundRing.gameObject.SetActive(true);
-            _soundRing.localScale = Vector3.zero;
-            _soundRingMat.DOFade(1, 0);
-            _soundRing.DOScale(_raycastDistance, 0.5f).OnComplete(() => _soundRing.gameObject.SetActive(false));
-            _soundRingMat.DOFade(0, 0.5f);
+            SoundRing soundRing = GetNextSoundRing();
+            soundRing.InUse = true;
+            soundRing.Transform.gameObject.SetActive(true);
+            soundRing.Transform.localScale = Vector3.zero;
+            soundRing.Material.DOFade(1, 0);
+            soundRing.Material.DOFade(0, 0.5f);
+            soundRing.Transform.DOScale(_raycastDistance*2, 0.5f).OnComplete(() => { soundRing.Transform.gameObject.SetActive(false); soundRing.InUse = false; });
         }
         /// <summary>
         /// Emits one pulse from the sound maker. The pulse will be louder the closer the multiplier is to 1.
@@ -123,17 +151,19 @@ namespace cmp2804.Point_Cloud
         {
             //https://cdn.discordapp.com/attachments/1059612797073362996/1091481867938693262/image.png
             multiplier = Mathf.Clamp01(multiplier);
-            float adjustedMultiplier = Mathf.Pow(Mathf.Log(multiplier + 1) / Mathf.Log(2), 0.4f); 
+            float adjustedMultiplier = Mathf.Pow(Mathf.Log(multiplier + 1) / Mathf.Log(2), 0.4f);
             SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
                                    _angle * adjustedMultiplier,
                                    Mathf.RoundToInt(_numberOfRays * multiplier), _layerMask,
                                    _raycastDistance * multiplier, _pointLifespan, _inverted);
             if (!_useSoundRing) { return; }
-            _soundRing.gameObject.SetActive(true);
-            _soundRing.localScale = Vector3.zero;
-            _soundRingMat.DOFade(1, 0);
-            _soundRing.DOScale(adjustedMultiplier * (adjustedMultiplier * 15), 0.5f).OnComplete(() => _soundRing.gameObject.SetActive(false));
-            _soundRingMat.DOFade(0, 0.5f);
+            SoundRing soundRing = GetNextSoundRing();
+            soundRing.InUse = true;
+            soundRing.Transform.gameObject.SetActive(true);
+            soundRing.Transform.localScale = Vector3.zero;
+            soundRing.Material.DOFade(1, 0);
+            soundRing.Material.DOFade(0, 0.5f);
+            soundRing.Transform.DOScale(adjustedMultiplier * (adjustedMultiplier * 15), 0.5f).OnComplete(() => { soundRing.Transform.gameObject.SetActive(false); soundRing.InUse = false; });
         }
 
         private IEnumerator Emit()
