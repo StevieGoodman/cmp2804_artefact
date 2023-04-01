@@ -34,6 +34,7 @@ namespace cmp2804.Point_Cloud
         [ShowIfGroup("_useSoundRing")]
         [TitleGroup("_useSoundRing/Sound Ring Settings")]
         [OdinSerialize] private Material _soundRingMat;
+        [TitleGroup("_useSoundRing/Sound Ring Settings")]
         [OdinSerialize] private Color _soundRingColour = Color.red;
 
 
