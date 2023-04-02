@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using cmp2804.Characters.Movement;
 using cmp2804.Math;
 using Sirenix.OdinInspector;
@@ -8,12 +9,13 @@ using UnityEngine.InputSystem;
 
 namespace cmp2804.Characters
 {
-    [RequireComponent(typeof(PositionMovement), typeof(RotationMovement))]
+    [RequireComponent(typeof(PositionMovement), typeof(RotationMovement), typeof(Clap))]
     [HideMonoScript]
     public class PlayerInputHandler : SerializedMonoBehaviour
     {
         private PositionMovement _positionMovement;
         private RotationMovement _rotationMovement;
+        private Clap _clap;
 
         [Title("Movement States", "The possible states the player can move in.")]
         [OdinSerialize] private Dictionary<string, MovementState> _movementStates;
@@ -22,6 +24,7 @@ namespace cmp2804.Characters
         {
             _positionMovement = GetComponent<PositionMovement>();
             _rotationMovement = GetComponent<RotationMovement>();
+            _clap = GetComponent<Clap>();
         }
 
         public void SetMoveDirection(InputAction.CallbackContext context)
@@ -46,6 +49,10 @@ namespace cmp2804.Characters
         public void Jog(InputAction.CallbackContext context)
         {
             SetMovementState(context, "Jog");
+        }
+        public void Clap(InputAction.CallbackContext context)
+        {
+            _clap.Process(context.phase, context.duration);
         }
 
         private void SetMovementState(InputAction.CallbackContext context, string newStateName)

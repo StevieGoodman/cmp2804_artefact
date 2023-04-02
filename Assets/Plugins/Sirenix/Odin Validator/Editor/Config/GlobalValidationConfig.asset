@@ -55,8 +55,8 @@ MonoBehaviour:
     serializedValue: 0
     changedFromDefault: 0
   ShowWidget:
-    serializedValue: 0
-    changedFromDefault: 0
+    serializedValue: 1
+    changedFromDefault: 1
   DebugMode:
     serializedValue: 0
     changedFromDefault: 0
