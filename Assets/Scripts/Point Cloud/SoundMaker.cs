@@ -35,6 +35,7 @@ namespace cmp2804.Point_Cloud
         [TitleGroup("_useSoundRing/Sound Ring Settings")]
         [OdinSerialize] private Material _soundRingMat;
         [TitleGroup("_useSoundRing/Sound Ring Settings")]
+        [OnValueChanged("OnColourChanged")]
         [OdinSerialize] private Color _soundRingColour = Color.red;
 
 
@@ -108,7 +109,13 @@ namespace cmp2804.Point_Cloud
             StopAllCoroutines();
             Emitting = false;
         }
-
+        private void OnColourChanged()
+        {
+            foreach (var ring in _soundRings)
+            {
+                ring.Material.color = _soundRingColour;
+            }
+        }
         private SoundRing GetNextSoundRing()
         {
             if(!_soundRings.Any(x => !x.InUse))
@@ -137,7 +144,7 @@ namespace cmp2804.Point_Cloud
                                    _angle,
                                    _numberOfRays, _layerMask,
                                    _raycastDistance, _pointLifespan, _inverted);
-            if (!_useSoundRing) { return; }
+            if (!_useSoundRing || _soundRingMat == null) { return; }
             SoundRing soundRing = GetNextSoundRing();
             soundRing.InUse = true;
             soundRing.Transform.gameObject.SetActive(true);
@@ -159,7 +166,7 @@ namespace cmp2804.Point_Cloud
                                    _angle * adjustedMultiplier,
                                    Mathf.RoundToInt(_numberOfRays * multiplier), _layerMask,
                                    _raycastDistance * multiplier, _pointLifespan, _inverted);
-            if (!_useSoundRing) { return; }
+            if (!_useSoundRing || _soundRingMat == null) { return; }
             SoundRing soundRing = GetNextSoundRing();
             soundRing.InUse = true;
             soundRing.Transform.gameObject.SetActive(true);
