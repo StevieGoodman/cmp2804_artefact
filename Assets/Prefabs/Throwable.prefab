@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7027743589124942244}
   - component: {fileID: 4642780088185730062}
   - component: {fileID: 7715904841375167648}
+  - component: {fileID: 697032540162451455}
   m_Layer: 0
   m_Name: Throwable
   m_TagString: Untagged
@@ -128,3 +129,112 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distractionRadius: 5
+--- !u!114 &697032540162451455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027743589124942251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbd72e4f561d8941a91c00bb3f31f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 2100000, guid: be557190a27ae0a47add354a11b93017, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _angle
+      Entry: 4
+      Data: 360
+    - Name: _offset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _direction
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _emissionFrequency
+      Entry: 4
+      Data: 10
+    - Name: _emitOnStartup
+      Entry: 5
+      Data: false
+    - Name: _inverted
+      Entry: 5
+      Data: false
+    - Name: _numberOfRays
+      Entry: 3
+      Data: 500
+    - Name: _raycastDistance
+      Entry: 4
+      Data: 5
+    - Name: _useTransformRotation
+      Entry: 5
+      Data: false
+    - Name: _pointLifespan
+      Entry: 4
+      Data: 5
+    - Name: _layerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 63
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _useSoundRing
+      Entry: 5
+      Data: false
+    - Name: _soundRingMat
+      Entry: 10
+      Data: 0
+    - Name: _soundRingColour
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
