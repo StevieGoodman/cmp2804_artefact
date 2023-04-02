@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2299087327427654635}
   - component: {fileID: 2299087327427654624}
   - component: {fileID: 2299087327427654631}
+  - component: {fileID: 5532903566456921279}
   m_Layer: 0
   m_Name: Player Character
   m_TagString: Player
@@ -415,3 +416,72 @@ MonoBehaviour:
     - Name: MovementState
       Entry: 10
       Data: 0
+--- !u!114 &5532903566456921279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2299087327427654637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbd72e4f561d8941a91c00bb3f31f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _angle
+      Entry: 4
+      Data: 360
+    - Name: _direction
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _emissionFrequency
+      Entry: 4
+      Data: 0.2
+    - Name: _emitOnStartup
+      Entry: 5
+      Data: true
+    - Name: _inverted
+      Entry: 5
+      Data: false
+    - Name: _numberOfRays
+      Entry: 3
+      Data: 50
+    - Name: _raycastDistance
+      Entry: 4
+      Data: 5
+    - Name: _useTransformRotation
+      Entry: 5
+      Data: false
+    - Name: _pointLifespan
+      Entry: 4
+      Data: 2
+    - Name: _layerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 55
+    - Name: 
+      Entry: 8
+      Data: 
