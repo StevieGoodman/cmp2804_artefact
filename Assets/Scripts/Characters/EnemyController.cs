@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using cmp2804.Characters.Detection;
 using cmp2804.Characters.States;
 using cmp2804.DistractionMechanic;
@@ -5,6 +7,7 @@ using cmp2804.Math;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace cmp2804.Characters
 {
@@ -17,15 +20,42 @@ namespace cmp2804.Characters
         [OdinSerialize, HideLabel]
         public EnemyState State { get; set; }
 
+        public Canvas enemyStateCanvas;
+        public GameObject enemyStateIndicator;
+        public Sprite enemyStatePatrol;
+        public Sprite enemyStateInvestigate;
+        public Sprite enemyStateChase;
+
+        private Camera _camera;
+        
         private void Awake()
         {
             State = gameObject.GetComponent<Patrol>();
+            enemyStateIndicator.GetComponent<Image>().sprite = enemyStatePatrol;
+        }
+
+        private void Start()
+        {
+            _camera = Camera.main;
+        }
+
+        private void Update()
+        {
+            enemyStateCanvas.transform.rotation = _camera.transform.rotation;
         }
 
         public async void FixedUpdate()
         {
             await State.TickState();
             State.UpdateState();
+            
+            enemyStateIndicator.GetComponent<Image>().sprite = State switch
+            {
+                Patrol => enemyStatePatrol,
+                Investigate => enemyStateInvestigate,
+                Chase => enemyStateChase,
+                _ => null
+            };
         }
         
         public void Distract(DistractionSource source)
