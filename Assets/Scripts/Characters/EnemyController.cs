@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using cmp2804.Characters.Detection;
 using cmp2804.Characters.States;
 using Sirenix.OdinInspector;
@@ -45,19 +46,14 @@ namespace cmp2804.Characters
         {
             await State.TickState();
             State.UpdateState();
-
-            if (State == gameObject.GetComponent<Patrol>())
+            
+            enemyStateIndicator.GetComponent<Image>().sprite = State switch
             {
-                enemyStateIndicator.GetComponent<Image>().sprite = enemyStatePatrol;
-            }
-            else if (State == gameObject.GetComponent<Investigate>())
-            {
-                enemyStateIndicator.GetComponent<Image>().sprite = enemyStateInvestigate;
-            }
-            else if (State == gameObject.GetComponent<Chase>())
-            {
-                enemyStateIndicator.GetComponent<Image>().sprite = enemyStateChase;
-            }
+                Patrol => enemyStatePatrol,
+                Investigate => enemyStateInvestigate,
+                Chase => enemyStateChase,
+                _ => null
+            };
         }
     }
 }
