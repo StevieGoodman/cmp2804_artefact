@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using cmp2804.Characters.Detection;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace cmp2804.Characters.States
 {
@@ -44,9 +45,20 @@ namespace cmp2804.Characters.States
 
         public override async Task TickState()
         {
+            TryApprehendPlayer();
             if (!_navMeshAgent.destination.Equals(_playerCharacterTransform.position))
                 _navMeshAgent.SetDestination(_playerCharacterTransform.position);
             await Task.Delay(0);
+        }
+
+        /// <summary>
+        /// Checks if the player is within 1.25 units of the enemy, and if so, reloads the current scene.
+        /// </summary>
+        private void TryApprehendPlayer()
+        {
+            var distance = Vector3.Distance(transform.position, _playerCharacterTransform.position);
+            if (distance < 1.25f)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
