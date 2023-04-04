@@ -45,9 +45,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9105b0f4b4518244bb2ae5888ada0eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointMaterial: {fileID: 2100000, guid: fd79196979989ea468f14ad8ef03b3a5, type: 2}
-  pointMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  computeShader: {fileID: 7200000, guid: b04b3cdc1b7978d418118b76fc36ae0d, type: 3}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7200000, guid: b04b3cdc1b7978d418118b76fc36ae0d, type: 3}
+    - {fileID: 2100000, guid: fd79196979989ea468f14ad8ef03b3a5, type: 2}
+    - {fileID: 4300000, guid: e49c959f3097f964e85dde87cf1eca2f, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _computeShader
+      Entry: 10
+      Data: 0
+    - Name: _pointMaterial
+      Entry: 10
+      Data: 1
+    - Name: _pointMesh
+      Entry: 10
+      Data: 2
 --- !u!114 &596942209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,3 +78,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0bfca30c839dd4e977e4a3e45b2280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _playerHead
+      Entry: 6
+      Data: 

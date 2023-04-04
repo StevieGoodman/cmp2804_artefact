@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using cmp2804.DistractionMechanic;
+using cmp2804.Point_Cloud;
 using UnityEngine;
 
 namespace cmp2804
@@ -19,7 +20,8 @@ namespace cmp2804
 
         private void OnCollisionEnter(Collision collision)
         {
-            DistractionSource distractionSource = new DistractionSource(transform.position, distractionRadius);
+            var distractionSource = new DistractionSource(transform.position, distractionRadius);
+            gameObject.GetComponent<SoundMaker>().StartEmission();
         }
 
         public void DestroyAfterTime(float time)

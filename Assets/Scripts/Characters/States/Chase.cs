@@ -44,7 +44,8 @@ namespace cmp2804.Characters.States
 
         public override async Task TickState()
         {
-            _navMeshAgent.destination = _playerCharacterTransform.position;
+            if (!_navMeshAgent.destination.Equals(_playerCharacterTransform.position))
+                _navMeshAgent.SetDestination(_playerCharacterTransform.position);
             await Task.Delay(0);
         }
     }
