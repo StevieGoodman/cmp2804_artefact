@@ -10,18 +10,10 @@ namespace cmp2804
     public class Throwable : MonoBehaviour
     {
         public float distractionRadius = 5f;
-        
-        private Rigidbody _rigidbody;
-
-        private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void OnCollisionEnter(Collision collision)
         {
-            var distractionSource = new DistractionSource(transform.position, distractionRadius);
-            gameObject.GetComponent<SoundMaker>().StartEmission();
+            gameObject.GetComponent<SoundMaker>().MakeSound(true, distractionRadius);
         }
 
         public void DestroyAfterTime(float time)
