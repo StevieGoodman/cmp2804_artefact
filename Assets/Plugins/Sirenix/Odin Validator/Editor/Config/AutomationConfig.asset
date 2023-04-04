@@ -20,7 +20,7 @@ MonoBehaviour:
   OnPlayModeSetup:
     Profile: 0
     ProfileAsset: {fileID: 11400000, guid: f599e7225a3e14052b75038107ff2cf7, type: 2}
-  OnBuild: 1
+  OnBuild: 0
   OnBuildIfWarnings: 3
   OnBuildIfErrors: 3
   OnBuildAlwaysCompleteValidationFully: 0

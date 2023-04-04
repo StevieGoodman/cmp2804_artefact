@@ -142,99 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 1f01060000005f0061006e0067006c00650000007a430301070000005f006f00660066007300650074002f00000000012b00000055006e0069007400790045006e00670069006e0065002e0056006500630074006f00720033002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065002000000000200000803f20000000000503010a0000005f0064006900720065006300740069006f006e003000000000200000000020000080bf2000000000051f01120000005f0065006d0069007300730069006f006e004600720065007100750065006e0063007900000020412b010e0000005f0065006d00690074004f006e005300740061007200740075007000002b01090000005f0069006e007600650072007400650064000017010d0000005f006e0075006d006200650072004f0066005200610079007300640000001f01100000005f007200610079006300610073007400440069007300740061006e00630065000000a0402b01150000005f007500730065005400720061006e00730066006f0072006d0052006f0074006100740069006f006e00001f010e0000005f0070006f0069006e0074004c006900660065007300700061006e000000204103010a0000005f006c0061007900650072004d00610073006b002f01000000012d00000055006e0069007400790045006e00670069006e0065002e004c0061007900650072004d00610073006b002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c006500183f000000052b010d0000005f0075007300650053006f0075006e006400520069006e006700000b010d0000005f0073006f0075006e006400520069006e0067004d0061007400000000000301100000005f0073006f0075006e006400520069006e00670043006f006c006f00750072002f02000000012900000055006e0069007400790045006e00670069006e0065002e0043006f006c006f0072002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c006500200000803f20000000002000000000200000803f05
     ReferencedUnityObjects:
     - {fileID: 2100000, guid: be557190a27ae0a47add354a11b93017, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: _angle
-      Entry: 4
-      Data: 360
-    - Name: _offset
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _direction
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _emissionFrequency
-      Entry: 4
-      Data: 10
-    - Name: _emitOnStartup
-      Entry: 5
-      Data: false
-    - Name: _inverted
-      Entry: 5
-      Data: false
-    - Name: _numberOfRays
-      Entry: 3
-      Data: 500
-    - Name: _raycastDistance
-      Entry: 4
-      Data: 5
-    - Name: _useTransformRotation
-      Entry: 5
-      Data: false
-    - Name: _pointLifespan
-      Entry: 4
-      Data: 5
-    - Name: _layerMask
-      Entry: 7
-      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: 63
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: _useSoundRing
-      Entry: 5
-      Data: false
-    - Name: _soundRingMat
-      Entry: 10
-      Data: 0
-    - Name: _soundRingColour
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []

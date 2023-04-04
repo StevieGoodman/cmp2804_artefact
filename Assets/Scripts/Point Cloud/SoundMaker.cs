@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using cmp2804.DistractionMechanic;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -138,12 +139,16 @@ namespace cmp2804.Point_Cloud
         /// <summary>
         /// Emits one pulse from the sound maker.
         /// </summary>
-        public void MakeSound()
+        public void MakeSound(bool makeDistractionSource = false, float distractionRadius = -1)
         {
             SoundManager.MakeSound(transform.position + _offset, _useTransformRotation ? transform.forward : _direction,
                                    _angle,
                                    _numberOfRays, _layerMask,
                                    _raycastDistance, _pointLifespan, _inverted);
+            if (makeDistractionSource)
+            {
+                new DistractionSource(transform.position, distractionRadius == -1 ? _raycastDistance : distractionRadius);
+            }
             if (!_useSoundRing || _soundRingMat == null) { return; }
             SoundRing soundRing = GetNextSoundRing();
             soundRing.InUse = true;
@@ -157,7 +162,7 @@ namespace cmp2804.Point_Cloud
         /// Emits one pulse from the sound maker. The pulse will be louder the closer the multiplier is to 1.
         /// </summary>
         /// <param name="multiplier">A value ranging from 0-1.</param>
-        public void MakeSound(float multiplier)
+        public void MakeSound(float multiplier, bool makeDistractionSource = false, float distractionRadius = -1)
         {
             //https://cdn.discordapp.com/attachments/1059612797073362996/1091481867938693262/image.png
             multiplier = Mathf.Clamp01(multiplier);
@@ -166,6 +171,10 @@ namespace cmp2804.Point_Cloud
                                    _angle * adjustedMultiplier,
                                    Mathf.RoundToInt(_numberOfRays * multiplier), _layerMask,
                                    _raycastDistance * multiplier, _pointLifespan, _inverted);
+            if (makeDistractionSource)
+            {
+                new DistractionSource(transform.position, distractionRadius == -1 ? _raycastDistance : distractionRadius);
+            }
             if (!_useSoundRing || _soundRingMat == null) { return; }
             SoundRing soundRing = GetNextSoundRing();
             soundRing.InUse = true;
