@@ -9,6 +9,7 @@ TagManager:
   - pressed
   - Doorv2
   - Door(natInactive)
+  - Throwable
   layers:
   - Default
   - TransparentFX
