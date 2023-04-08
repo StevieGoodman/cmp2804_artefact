@@ -1,34 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
+using cmp2804.Buttons;
 using UnityEngine;
 
 namespace cmp2804
 {
-    
-    //assign the door, and however many buttons that the door will use, to the respective game Objects below// 
 
     public class DoorBehaviour : MonoBehaviour
     {
-        public GameObject Door;
-        public GameObject Button;
-        public GameObject Button2;
-
-        // Update is called once per frame
-        void Update()
+        public List<ButtonBehaviour> buttons;
+        
+        private void Start()
         {
-            if (Door.gameObject.tag == "Door" && Button.tag == "pressed")
-                Door.SetActive(false);
-            else if (Door.tag == "Doorv2" && Button.tag == "pressed" && Button2.tag == "pressed")
-                Door.SetActive(false);
+            AddListeners();
+        }
 
-            //make sure the door has "Door" tag if only one button will open it.//
-            
-            //make sure the door has "Doorv2" tag if two buttons will open it.//
+        /// <summary>
+        /// Subscribe to the onToggle event of each button.
+        /// </summary>
+        private void AddListeners()
+        {
+            foreach (var button in buttons)
+                button.onToggle.AddListener(OnButtonToggle);
+        }
+        
+        /// <summary>
+        /// Called when any button is toggled.
+        /// </summary>
+        private void OnButtonToggle()
+        {
+            var shouldOpenDoor = ShouldOpenDoor();
+            Debug.Log("shouldOpenDoor = " + shouldOpenDoor);
+            SetDoorOpenState(shouldOpenDoor);
+        }
 
+        /// <summary>
+        /// Set the door to open or closed.
+        /// </summary>
+        /// <param name="shouldOpenDoor">Determines if the door is opened or not.</param>
+        private void SetDoorOpenState(bool shouldOpenDoor)
+        {
+            gameObject.SetActive(!shouldOpenDoor);
+        }
 
-            //make sure the buttons have the correct script attached to them.//
-
+        /// <summary>
+        /// Checks if the door should be opened.
+        /// </summary>
+        /// <returns>Boolean representing if the door should be opened.</returns>
+        private bool ShouldOpenDoor()
+        {
+            return buttons.All(b => b.toggled);
         }
     }
 }
