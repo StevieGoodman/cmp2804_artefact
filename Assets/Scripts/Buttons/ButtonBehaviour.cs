@@ -1,25 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace cmp2804
+namespace cmp2804.Buttons
 {
     public class ButtonBehaviour : MonoBehaviour
     {
-
-        public GameObject Button;
-
-        void OnCollisionStay(Collision coll)
+        public UnityEvent onToggle = new();
+        public bool toggled;
+        private const float DebounceDuration = 2f;
+        public float debounceTimer;
+        
+        private void Update()
         {
-            if (coll.gameObject.tag == "Player")
-                Button.tag = "pressed";
+            UpdateDebounceTimer();
+        }
 
-            else if (coll.gameObject.tag == "Throwable")
-                Button.tag = "pressed";
-            UnityEngine.Debug.Log("button pressed");
+        public void OnCollisionEnter(Collision collision)
+        {
+            var other = collision.gameObject;
+            ToggleButton(other);
+        }
 
-
-        }   
+        /// <summary>
+        /// Updates the debounce timer.
+        /// </summary>
+        private void UpdateDebounceTimer()
+        {
+            if (debounceTimer > 0)
+                debounceTimer -= Time.deltaTime;
+            debounceTimer = Mathf.Clamp(debounceTimer, 0, DebounceDuration);
+        }
+        
+        /// <summary>
+        /// Toggles the button and invokes the onToggle event.
+        /// </summary>
+        /// <param name="other">The GameObject that collided with the button.</param>
+        private void ToggleButton(GameObject other)
+        {
+            if (!other.CompareTag("Player")) return;
+            if (debounceTimer > 0) return;
+            debounceTimer = DebounceDuration;
+            toggled = !toggled;
+            onToggle.Invoke();
+        }
     }
 }
