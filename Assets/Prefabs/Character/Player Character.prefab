@@ -440,6 +440,21 @@ MonoBehaviour:
     - Name: _angle
       Entry: 4
       Data: 360
+    - Name: _offset
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: _direction
       Entry: 7
       Data: UnityEngine.Vector3, UnityEngine.CoreModule
@@ -482,6 +497,30 @@ MonoBehaviour:
     - Name: 
       Entry: 3
       Data: 55
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: _useSoundRing
+      Entry: 5
+      Data: false
+    - Name: _soundRingMat
+      Entry: 6
+      Data: 
+    - Name: _soundRingColour
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
