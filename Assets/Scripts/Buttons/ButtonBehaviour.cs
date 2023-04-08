@@ -37,7 +37,7 @@ namespace cmp2804.Buttons
         /// <param name="other">The GameObject that collided with the button.</param>
         private void ToggleButton(GameObject other)
         {
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag("Player") && !other.CompareTag("Throwable")) return;
             if (debounceTimer > 0) return;
             debounceTimer = DebounceDuration;
             toggled = !toggled;
