@@ -13,6 +13,6 @@ namespace cmp2804.Characters.States
         /// <summary>
         /// Performs actions for this state.
         /// </summary>
-        public abstract Task TickState();
+        public abstract void TickState();
     }
 }

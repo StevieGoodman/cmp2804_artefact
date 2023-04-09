@@ -43,12 +43,11 @@ namespace cmp2804.Characters.States
                 _enemyController.State = _patrol;
         }
 
-        public override async Task TickState()
+        public override void TickState()
         {
             TryApprehendPlayer();
             if (!_navMeshAgent.destination.Equals(_playerCharacterTransform.position))
                 _navMeshAgent.SetDestination(_playerCharacterTransform.position);
-            await Task.Delay(0);
         }
 
         /// <summary>
@@ -57,7 +56,9 @@ namespace cmp2804.Characters.States
         private void TryApprehendPlayer()
         {
             var distance = Vector3.Distance(transform.position, _playerCharacterTransform.position);
+            Debug.Log($"Distance: {distance} game object: {gameObject.name}");
             if (distance < 1.25f)
+                Debug.Log($"Player apprehended! {gameObject.name}");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

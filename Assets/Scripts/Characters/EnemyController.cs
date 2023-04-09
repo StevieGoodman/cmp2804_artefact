@@ -46,7 +46,7 @@ namespace cmp2804.Characters
 
         public async void FixedUpdate()
         {
-            await State.TickState();
+            State.TickState();
             State.UpdateState();
             
             enemyStateIndicator.GetComponent<Image>().sprite = State switch

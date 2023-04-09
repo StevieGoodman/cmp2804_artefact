@@ -41,10 +41,9 @@ namespace cmp2804.Characters.States
             _controller.State = _patrol;
         }
         
-        public override async Task TickState()
+        public override void TickState()
         {
             InvestigateTime -= Time.deltaTime;
-            await Task.Delay(0);
         }
     }
 }

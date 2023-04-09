@@ -40,12 +40,11 @@ namespace cmp2804.Characters.States
                 _enemyController.State = _chase;
         }
 
-        public override async Task TickState()
+        public override void TickState()
         {
             if (_agent.remainingDistance != 0) return;
             _agent.isStopped = true;
             SetNextMovementTarget();
-            await Task.Delay(_patrolDelay);
             _agent.isStopped = false;
         }
         
