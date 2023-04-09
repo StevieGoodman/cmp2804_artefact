@@ -56,9 +56,7 @@ namespace cmp2804.Characters.States
         private void TryApprehendPlayer()
         {
             var distance = Vector3.Distance(transform.position, _playerCharacterTransform.position);
-            Debug.Log($"Distance: {distance} game object: {gameObject.name}");
             if (distance < 1.25f)
-                Debug.Log($"Player apprehended! {gameObject.name}");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
