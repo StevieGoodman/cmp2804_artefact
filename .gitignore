@@ -74,3 +74,6 @@ crashlytics-build.properties
 
 .DSStore
 ProjectSettings/ProjectVersion.txt
+
+# Plugin Files
+/[Aa]ssets/[Pp]lugins/Sirenix/Demos
