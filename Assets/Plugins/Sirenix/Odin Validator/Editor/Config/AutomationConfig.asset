@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: -1671962818, guid: afbf832bc46149f5a291e87cab63e46d, type: 3}
   m_Name: AutomationConfig
   m_EditorClassIdentifier: 
-  OnPlayMode: 1
-  OnPlayModeIfWarnings: 1
-  OnPlayModeIfErrors: 5
+  OnPlayMode: 0
+  OnPlayModeIfWarnings: 0
+  OnPlayModeIfErrors: 3
   OnPlayModeAlwaysCompleteValidationFully: 0
-  OnPlayModeFlashScreen: 1
+  OnPlayModeFlashScreen: 0
   OnPlayModeSetup:
     Profile: 0
-    ProfileAsset: {fileID: 11400000, guid: f599e7225a3e14052b75038107ff2cf7, type: 2}
+    ProfileAsset: {fileID: 0}
   OnBuild: 0
-  OnBuildIfWarnings: 3
+  OnBuildIfWarnings: 0
   OnBuildIfErrors: 3
   OnBuildAlwaysCompleteValidationFully: 0
-  OnBuildFlashScreen: 1
+  OnBuildFlashScreen: 0
   OnBuildSetup:
     Profile: 0
-    ProfileAsset: {fileID: 11400000, guid: f599e7225a3e14052b75038107ff2cf7, type: 2}
+    ProfileAsset: {fileID: 0}
   OnProjectStartup: 0
   OnProjectStartupIfWarnings: 0
   OnProjectStartupIfErrors: 1
