@@ -79,6 +79,9 @@ namespace cmp2804.Point_Cloud
 
         public static (Dictionary<Transform, Color>, Dictionary<Transform, Color>) CacheAllColours()
         {
+            ObjectColours.Clear();
+            HighlightObjectColours.Clear();
+
             foreach (var renderer in FindObjectsOfType<Renderer>())
             {
                 if (renderer.transform.TryGetComponent(out ObjectHighlighter highlight))
