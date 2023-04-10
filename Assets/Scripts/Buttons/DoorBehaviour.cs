@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using cmp2804.Buttons;
+using cmp2804.Point_Cloud;
 using UnityEngine;
 
 namespace cmp2804
@@ -40,6 +41,7 @@ namespace cmp2804
         /// <param name="shouldOpenDoor">Determines if the door is opened or not.</param>
         private void SetDoorOpenState(bool shouldOpenDoor)
         {
+            if (shouldOpenDoor) SoundManager.DisableObjectPoints(transform);
             gameObject.SetActive(!shouldOpenDoor);
         }
 

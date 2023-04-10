@@ -128,6 +128,15 @@ namespace cmp2804.Point_Cloud
                 if (_parents[i] == transform) _colours[i] = newColour;
             }
         }
+        
+        public void DisablePointsParentedToTransform(Transform transform)
+        {
+            for (int i = _points.Count-1; i >= 0; i--)
+            {
+                if (_parents[i] == transform) RemovePoint(i);
+            }
+        }
+
         private void RecreateBuffers()
         {
             var count = _points.Count;

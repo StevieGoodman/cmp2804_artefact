@@ -105,6 +105,15 @@ namespace cmp2804.Point_Cloud
         }
 
         /// <summary>
+        /// Deletes all points associated with a transform.
+        /// </summary>
+        /// <param name="transform">Object to hide.</param>
+        public static void DisableObjectPoints(Transform transform)
+        {
+            PointCloudRenderer.Instance.DisablePointsParentedToTransform(transform);
+        }
+
+        /// <summary>
         ///     Makes a sound in a sphere at origin provided.
         /// </summary>
         /// <param name="origin">Centre of the sphere projected from.</param>
