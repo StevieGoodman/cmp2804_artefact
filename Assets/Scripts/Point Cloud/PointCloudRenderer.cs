@@ -106,7 +106,7 @@ namespace cmp2804.Point_Cloud
 
         public void CreatePoint(Vector3 localPosition, Transform transform, Vector3 direction, Color colour, float lifespanScale)
         {
-            if(_points.Count > MaxPoints)
+            if (_points.Count > MaxPoints)
             {
                 RemovePoint(0);
             }
@@ -121,6 +121,13 @@ namespace cmp2804.Point_Cloud
             UpdateShader();
         }
 
+        public void RefreshPointColourForTransform(Transform transform, Color newColour)
+        {
+            for (int i = 0; i < _points.Count; i++)
+            {
+                if (_parents[i] == transform) _colours[i] = newColour;
+            }
+        }
         private void RecreateBuffers()
         {
             var count = _points.Count;

@@ -91,6 +91,20 @@ namespace cmp2804.Point_Cloud
         }
 
         /// <summary>
+        /// Updates the colour of an object for the point cloud.
+        /// </summary>
+        /// <param name="transform">Object to update the colour of.</param>
+        /// <param name="newColour">Colour to replace the old.</param>
+        public static void UpdateObjectColour(Transform transform, Color newColour)
+        {
+            if (ObjectColours.ContainsKey(transform))
+                ObjectColours[transform] = newColour;
+            else
+                ObjectColours.Add(transform, transform.GetComponent<Renderer>().material.color);
+            PointCloudRenderer.Instance.RefreshPointColourForTransform(transform, newColour);
+        }
+
+        /// <summary>
         ///     Makes a sound in a sphere at origin provided.
         /// </summary>
         /// <param name="origin">Centre of the sphere projected from.</param>
