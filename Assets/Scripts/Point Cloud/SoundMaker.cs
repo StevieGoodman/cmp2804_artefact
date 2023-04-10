@@ -173,7 +173,7 @@ namespace cmp2804.Point_Cloud
                                    _raycastDistance * multiplier, _pointLifespan, _inverted);
             if (makeDistractionSource)
             {
-                new DistractionSource(transform.position, distractionRadius == -1 ? _raycastDistance : distractionRadius);
+                new DistractionSource(transform.position, distractionRadius == -1 ? _raycastDistance * multiplier : distractionRadius);
             }
             if (!_useSoundRing || _soundRingMat == null) { return; }
             SoundRing soundRing = GetNextSoundRing();

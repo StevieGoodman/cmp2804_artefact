@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Numerics;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -16,7 +12,7 @@ namespace cmp2804.DistractionMechanic
         {
             Origin = origin;
             _radius = radius;
-            
+            Debug.Log("radius = " + radius);
             EmitDistraction();
         }
 
@@ -27,8 +23,7 @@ namespace cmp2804.DistractionMechanic
             foreach (Collider collider in colliders)
             {
                 IDistractable distractable = collider.GetComponent<IDistractable>();
-                if (distractable != null)
-                    distractable.Distract(this);
+                distractable?.Distract(this);
             }
         }
     }

@@ -26,7 +26,7 @@ namespace cmp2804.Characters
                 case UnityEngine.InputSystem.InputActionPhase.Started:
                     break;
                 case UnityEngine.InputSystem.InputActionPhase.Canceled:
-                    _soundMaker.MakeSound(Mathf.Min(1, (float)duration));
+                    _soundMaker.MakeSound(Mathf.Min(1, (float)duration), true);
 
                     break;
                 default:

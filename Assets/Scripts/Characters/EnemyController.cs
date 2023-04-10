@@ -44,7 +44,7 @@ namespace cmp2804.Characters
             enemyStateCanvas.transform.rotation = _camera.transform.rotation;
         }
 
-        public async void FixedUpdate()
+        public void FixedUpdate()
         {
             State.TickState();
             State.UpdateState();
