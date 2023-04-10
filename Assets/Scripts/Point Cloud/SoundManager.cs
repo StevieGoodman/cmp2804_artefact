@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;
@@ -31,20 +32,18 @@ namespace cmp2804.Point_Cloud
         private void Update()
         {
             var raysCast = 0;
-            var target = Mathf.Max(40, Mathf.RoundToInt(RaysToCast.Count / 2f));
+            var target = Mathf.Min(200, Mathf.Max(4, Mathf.RoundToInt(RaysToCast.Count / 2f)));
             while (raysCast < target && RaysToCast.Count > 0)
             {
                 var ray = RaysToCast.Dequeue();
                 if (Physics.Raycast(ray.Origin, ray.Direction, out var hit, ray.Length, ray.LayerMask))
                 {
-                    if (!hit.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
+                    if (!hit.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player"))) //Somehow more performant than
+                                                                                                 //simply checking distance to player!
                     {
                         if (!Physics.Raycast(hit.point, _playerHead.position - hit.point, out var playerCheck)) continue;
-
-                        if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
-                        {
-                            continue;
-                        }
+                        //If the raycast hits something else before the player, ignore it
+                        if (!playerCheck.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Player"))) continue; 
                     }
                     if (_highlightEnabled && HighlightObjectColours.TryGetValue(hit.transform, out var colour))
                         PointCloudRenderer.Instance.CreatePoint(hit.transform.InverseTransformPoint(hit.point), hit.transform, hit.normal, colour,
@@ -53,7 +52,6 @@ namespace cmp2804.Point_Cloud
                         PointCloudRenderer.Instance.CreatePoint(hit.transform.InverseTransformPoint(hit.point), hit.transform, hit.normal, colour,
                             ray.Lifespan * (1 - hit.distance / ray.Length));
                 }
-
                 raysCast++;
             }
         }
@@ -115,7 +113,7 @@ namespace cmp2804.Point_Cloud
             {
                 var randDirection = Random.onUnitSphere;
                 if (inverted)
-                {              
+                {
                     var newOrigin = origin + randDirection * rayLength;
                     RaysToCast.Enqueue(
                         new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));
@@ -158,7 +156,7 @@ namespace cmp2804.Point_Cloud
             {
                 var randDirection = GetRandomDirection(direction, angle);
                 if (inverted)
-                {                
+                {
                     var newOrigin = origin + randDirection * rayLength;
                     RaysToCast.Enqueue(
                         new MakerRay(newOrigin, -randDirection, rayLength, lifespan, layerMask));

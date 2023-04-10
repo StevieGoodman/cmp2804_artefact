@@ -156,7 +156,7 @@ namespace cmp2804.Point_Cloud
             soundRing.Transform.localScale = Vector3.zero;
             soundRing.Material.DOFade(1, 0);
             soundRing.Material.DOFade(0, 0.5f);
-            soundRing.Transform.DOScale(_raycastDistance*2, 0.5f).OnComplete(() => { soundRing.Transform.gameObject.SetActive(false); soundRing.InUse = false; });
+            soundRing.Transform.DOScale(_raycastDistance*15, 0.5f).OnComplete(() => { soundRing.Transform.gameObject.SetActive(false); soundRing.InUse = false; });
         }
         /// <summary>
         /// Emits one pulse from the sound maker. The pulse will be louder the closer the multiplier is to 1.

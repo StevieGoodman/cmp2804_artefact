@@ -11,6 +11,7 @@ namespace cmp2804.Point_Cloud
     public class PointCloudRenderer : SerializedMonoBehaviour
     {
         private const float PointScale = 0.05f;
+        private const float MaxPoints = 6000f;
 
         private static readonly int
             PositionsId = Shader.PropertyToID("_Positions"),
@@ -19,10 +20,6 @@ namespace cmp2804.Point_Cloud
         private static readonly int Normals = Shader.PropertyToID("_Normals");
         private static readonly int Lifespans = Shader.PropertyToID("_Lifespans");
         private static readonly int Colours = Shader.PropertyToID("_Colours");
-        private static readonly int Scale = Shader.PropertyToID("scale");
-        private static readonly int Intensity = Shader.PropertyToID("intensity");
-        private static readonly int WorldPos = Shader.PropertyToID("worldPos");
-        private static readonly int Quaternion1 = Shader.PropertyToID("quaternion");
 
         private readonly Bounds _bounds = new(Vector3.zero, Vector3.one * 20000);
         private readonly List<Color> _colours = new();
@@ -56,9 +53,7 @@ namespace cmp2804.Point_Cloud
 
         private void Update()
         {
-            if (Keyboard.current.kKey.wasPressedThisFrame) SoundManager.MakeSound(transform.position, 1000, 100, 10, ~0);
-
-            if (_pointBuffer == null || _normalBuffer == null || _lifespanBuffer == null) return;
+            if (_pointBuffer == null) return;
 
             var recreateBuffer = false;
             for (var i = 0; i < _lifespans.Count; i++)
@@ -111,6 +106,10 @@ namespace cmp2804.Point_Cloud
 
         public void CreatePoint(Vector3 localPosition, Transform transform, Vector3 direction, Color colour, float lifespanScale)
         {
+            if(_points.Count > MaxPoints)
+            {
+                RemovePoint(0);
+            }
             _localPoints.Add(localPosition);
             _points.Add(Vector3.zero);
             _parents.Add(transform);
