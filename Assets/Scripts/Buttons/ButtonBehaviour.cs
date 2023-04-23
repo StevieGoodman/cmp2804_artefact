@@ -9,6 +9,7 @@ namespace cmp2804.Buttons
         public bool toggled;
         private const float DebounceDuration = 2f;
         public float debounceTimer;
+        public AudioSource audioPlayer;
         
         private void Update()
         {
@@ -42,6 +43,9 @@ namespace cmp2804.Buttons
             debounceTimer = DebounceDuration;
             toggled = !toggled;
             onToggle.Invoke();
+
+            audioPlayer.Play();
+
         }
     }
 }
