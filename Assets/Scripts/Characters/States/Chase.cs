@@ -9,6 +9,7 @@ namespace cmp2804.Characters.States
     [RequireComponent(typeof(EnemyController), typeof(NavMeshAgent))]
     public class Chase : EnemyState
     {
+        public GameObject GameOverUI;
         private NavMeshAgent _navMeshAgent;
         private Sight _sight;
         private EnemyController _enemyController;
@@ -57,7 +58,8 @@ namespace cmp2804.Characters.States
         {
             var distance = Vector3.Distance(transform.position, _playerCharacterTransform.position);
             if (distance < 1.25f)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+               GameOverUI.SetActive(true);
+               // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
