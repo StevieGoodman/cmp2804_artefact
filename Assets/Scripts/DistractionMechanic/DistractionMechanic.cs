@@ -11,6 +11,7 @@ namespace cmp2804.DistractionMechanic
         public GameObject throwable;
         public float throwForce = 10f;
 
+        public AudioSource sound;
         private InputAction _throwAction;
         
         public void Awake()
@@ -21,7 +22,8 @@ namespace cmp2804.DistractionMechanic
 
         private void OnEnable()
         {
-            _throwAction.Enable();
+            _throwAction.Enable(); 
+           
         }
 
         private void OnDisable()
@@ -32,7 +34,7 @@ namespace cmp2804.DistractionMechanic
         private void ThrowOnPerformed(InputAction.CallbackContext context)
         {
             GameObject throwableObject = Instantiate(throwable, transform.position, transform.rotation);
-
+            sound.Play();
             Collider playerCollider = GetComponent<Collider>();
             Collider throwableCollider = throwableObject.GetComponent<Collider>();
 

@@ -18,6 +18,7 @@ namespace cmp2804.Characters.States
         private EnemyController _enemyController;
         private Chase _chase;
         private Sight _sight;
+       
 
         // Properties
         [Title("Patrol Nodes", "The nodes the enemy will patrol between.")]
@@ -38,8 +39,9 @@ namespace cmp2804.Characters.States
         {
             if (_sight.PlayerInSight())
                 _enemyController.State = _chase;
-        }
+                
 
+        }
         public override void TickState()
         {
             if (_agent.remainingDistance != 0) return;
