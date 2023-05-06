@@ -2251,6 +2251,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  sound: {fileID: 1185799671}
 --- !u!114 &379164486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2265,6 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwable: {fileID: 7027743589124942251, guid: bb2a4dec86620e347b878430e8a1304f, type: 3}
   throwForce: 10
+  sound: {fileID: 1185799671}
 --- !u!43 &416299701
 Mesh:
   m_ObjectHideFlags: 0
