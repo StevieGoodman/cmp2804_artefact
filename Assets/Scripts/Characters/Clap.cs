@@ -13,6 +13,7 @@ namespace cmp2804.Characters
     {
 
         private SoundMaker _soundMaker;
+        public AudioSource sound;
 
         private void Start()
         {
@@ -26,6 +27,7 @@ namespace cmp2804.Characters
                 case UnityEngine.InputSystem.InputActionPhase.Started:
                     break;
                 case UnityEngine.InputSystem.InputActionPhase.Canceled:
+                    sound.Play();
                     _soundMaker.MakeSound(Mathf.Min(1, (float)duration), true);
 
                     break;
