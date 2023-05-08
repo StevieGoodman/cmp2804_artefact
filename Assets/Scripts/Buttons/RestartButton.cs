@@ -12,8 +12,13 @@ namespace cmp2804
         {
             if(Input.GetMouseButtonDown(0))
             {
+                Time.timeScale = 1.0f;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+        }
+        private void OnEnable()
+        {
+            Time.timeScale = 0f;
         }
     }
 }
