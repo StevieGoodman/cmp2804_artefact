@@ -32,7 +32,7 @@ namespace cmp2804.Point_Cloud
         private void Update()
         {
             var raysCast = 0;
-            var target = Mathf.Min(200, Mathf.Max(4, Mathf.RoundToInt(RaysToCast.Count / 2f)));
+            var target = Mathf.Min(200, Mathf.Max(10, Mathf.RoundToInt(RaysToCast.Count / 2f)));
             while (raysCast < target && RaysToCast.Count > 0)
             {
                 var ray = RaysToCast.Dequeue();
